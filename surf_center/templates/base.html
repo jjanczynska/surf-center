@@ -60,12 +60,35 @@
                   </div>
                 </div>
               </form>
-              <div class="user-icons">
-                <a href="#" class="my-account-link mr-3">
-                  <i class="fas fa-user"></i> My Account
-                </a>
-                <a href="#" class="shopping-basket-link">
-                  <i class="fas fa-shopping-basket"></i>
+              <!-- User Account and Shopping Basket-->
+              <div class="user-icons d-flex">
+                <!-- My Account dropdown -->
+                <div class="dropdown mr-3">
+                  <a href="#" class="nav-link dropdown-toggle"id="userAccountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user-circle"></i> My Account
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userAccountDropdown">
+                    <!-- Links based on User Authentication -->
+                    {% if request.user.is_authenticated %}
+                      {% if request.user.is_superuser %}
+                      <a href="" class="dropdown-item">Product Management</a>
+                      {% endif %}
+                      <a href="" class="dropdown-item">My Profile</a>
+                      <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
+                  {% else %}
+                      <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+                      <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
+                  {% endif %}
+                  </div>
+                </div> 
+                <!-- Shopping Basket--> 
+                <a href="#" class="nav-link shopping-basket-link">
+                  <i class="fas fa-shopping-cart"></i>
+                  {% if grand_total %}
+                      <span class="badge badge-info">${{ grand_total|floatformat:2 }}</span>
+                  {% else %}
+                      <span class="badge badge-secondary">$0.00</span>
+                  {% endif %}
                 </a>
               </div>
             </div>
