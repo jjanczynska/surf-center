@@ -44,16 +44,17 @@
     <header class="bg-light">
       <div class="container-row1">
         <div class="row align-items-center py-3">
-          <div class="col-md-8">
+          <div class="col-md-4">
             <a href="{% url 'home' %}" class="navbar-brand">Surf Center & Shop</a>
           </div>
           <div class="col-md-4">
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-end align-items-center">
+              <!-- Search Form -->
               <form method="GET" action="" class="search-form mr-3">
                 <div class="input-group">
-                  <input class="form-control border rounded-left" type="text" name="q" placeholder="Search our site" aria-label="Search">
+                  <input class="form-control border rounded-pill-left" type="text" name="q" placeholder="Search our site" aria-label="Search">
                   <div class="input-group-append">
-                    <button class="btn btn-outline-primary rounded-right" type="submit">
+                    <button class="btn btn-outline-secondary  rounded-pill-right" type="submit">
                       <i class="fas fa-search"></i>
                     </button>
                   </div>
