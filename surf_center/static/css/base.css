@@ -1,0 +1,62 @@
+/* Base style */
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    color: #555;
+    margin: 0;
+    background: #f0f8ff;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+
+/* Header and navigation style*/
+
+header {
+    background-image: url(surf_center/media/summer_bkg_53_c.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.navbar-brand {
+    font-family: 'Cabin Sketch', cursive;
+    font-size: 3em;
+    color: #ff4500;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+/* Nav Style */
+
+nav {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+nav .navbar-nav .nav-link {
+    color: #2b3d4f
+}
+
+nav .navbar-nav .nav-item.dropdown .dropdown-menu {
+    background-color: #add8e6;
+}
+
+.fas {
+    color: #ffd700;
+}
+
+.search-form .form-control {
+    border: 0,
+}
+
+.search-form .btn {
+    background-color: #ff4500;
+}
+
+.badge-info {
+    background-color: #17a2b8;
+}
