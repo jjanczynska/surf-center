@@ -18,9 +18,11 @@ body {
 /* Header and navigation style*/
 
 header {
-    background-image: url(surf_center/media/summer_bkg_53_c.jpg);
+    background-image: url('/media/summer_bkg_53_c.jpg');
     background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
+    overflow: hidden;
 }
 
 .navbar-brand {
