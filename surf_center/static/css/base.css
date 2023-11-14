@@ -18,7 +18,7 @@ body {
 /* Header and navigation style*/
 
 header {
-  
+  background-color: #1d7874;
 }
 
 .navbar-brand {
@@ -36,7 +36,7 @@ nav {
 }
 
 nav .navbar-nav .nav-link {
-    color: #323031
+    color: #fff05a
 }
 
 nav .navbar-nav .nav-item.dropdown .dropdown-menu {
@@ -57,4 +57,18 @@ nav .navbar-nav .nav-item.dropdown .dropdown-menu {
 
 .badge-info {
     background-color: #85C7F2;
+}
+
+/* Footer Styles */
+
+footer {
+    background-color: #323031;
+    padding:20px 0;
+    color: #fff05a;
+}
+
+social-icon {
+    margin: 0 10px;
+    color: #fff05a;
+    font-size: 1.5em;
 }
