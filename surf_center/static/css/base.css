@@ -6,9 +6,9 @@ html {
 
 body {
     font-family: 'Lato', sans-serif;
-    color: #323031;
+    color: #333;
+    background-color: #f0f8ff;
     margin: 0;
-    background: #85C7F2;
     padding: 0;
     box-sizing: border-box;
 
@@ -17,58 +17,125 @@ body {
 
 /* Header and navigation style*/
 
-header {
-  background-color: #1d7874;
+.container-row1 {
+    background-color: #ff7043; 
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
 }
 
-.navbar-brand {
+.surf-navbar-brand {
     font-family: 'Cabin Sketch', cursive;
     font-size: 3em;
-    color: #fb8b24;
-    margin-left: 1em;
-    margin-right: 1em;
+    color: #205072;
 }
+
+.search-form {
+    flex-grow: 2;
+    margin-right: 20px;
+}
+
+.search-form .input-group {
+    width: 100%;
+}
+
+.surf-user-icons {
+    display: flex; 
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.surf-user-icons a {
+    color: #205072; 
+    font-size: 1.2em;
+    margin-left: 15px;
+}
+
 
 /* Nav Style */
 
-nav {
-    background-color: #323031;
+.surf-navbar {
+    background-color: #329D9C ;
 }
 
-nav .navbar-nav .nav-link {
-    color: #fff05a
+.surf-navbar .nav-link {
+    color: #f0f8ff;
 }
 
-nav .navbar-nav .nav-item.dropdown .dropdown-menu {
-    background-color: #17a2b8;
+.surf-navbar .nav-item .dropdown-menu {
+    background-color: #f0f8ff;
+    border: none;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
 }
 
-.fas {
-    color: #e9fb24;
+.surf-navbar .nav-item .dropdown-menu .dropdown-item {
+    color: #205072;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.search-form .form-control {
-    border: 0,
+.surf-navbar .nav-item .dropdown-menu .dropdown-item:hover {
+    background-color: #ff7043;
+    color: #ffffff;
 }
 
-.search-form .btn {
-    background-color: #fb8b24;
+.surf-navbar .nav-item .dropdown-menu {
+    margin-top: 0.5em;
 }
 
-.badge-info {
-    background-color: #85C7F2;
+
+/* Search Form */
+
+.surf-search-form input[type="text"] {
+    border: 1px solid #205072;
+    color: #333;
 }
+
+.surf-search-form button {
+    background-color: #205072;
+    color: #ffffff;
+}
+
+
 
 /* Footer Styles */
 
 footer {
-    background-color: #323031;
+    background-color: #205072;
     padding:20px 0;
-    color: #fff05a;
+    color: #ffffff;
 }
 
-social-icon {
-    margin: 0 10px;
-    color: #fff05a;
-    font-size: 1.5em;
+.surf-footer-container .social-icon {
+    font-size: 30px;
+    margin: 0 50px;
+    color: #ff7043;
+    transition: color 0.3s ease, transform 0.3 ease;
+    vertical-align: middle;
+}
+
+.surf-footer-container .social-icon:hover {
+    transform: scale(1.5);
+}
+
+
+.btn {
+    background-color: #205072;
+    color: #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #329D9C;
+    border-color: #329D9C;
+}
+
+input[type='text'], input[type='email'], textarea {
+    border: 1px solid #ccc;
+    padding: 10px;
+    transition: border-color 0.3s ease;
+}
+
+input[type='text']:focus, input[type='email']:focus, textarea:focus {
+    border-color: #329D9C;
 }
