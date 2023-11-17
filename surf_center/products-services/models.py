@@ -46,7 +46,7 @@ class Service(models.Model):
     ]
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    category = models.ForeignKey('Category', null=True, blank=True, on_delete=models.CASCADE)
+    category = models.ForeignKey('Category', null=True, blank=True, on_delete=SET_NULL)
     type = models.CharField(max_length=10, choices=LESSON_TYPES, default=GROUP)
     time_slots = models.CharField(max_length=5, choices=TIME_SLOTS)
     date = models.DateField()
