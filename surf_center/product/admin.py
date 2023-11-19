@@ -11,7 +11,7 @@ class ProductAdmin(admin.ModelAdmin):
         'image',
     )
 
-    ordering = ('sku')
+    ordering = ('sku',)
 
 class ServiceAdmin(admin.ModelAdmin):
     list_display = (
