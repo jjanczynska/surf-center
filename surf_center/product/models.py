@@ -5,6 +5,10 @@ import datetime
 # Create your models here.
 
 class Category(models.Model):
+
+    class Meta:
+        verbose_name_plural = 'Categories'
+        
     name = models.CharField(max_length=254)
     display_name = models.CharField(max_length=254, null=True, blank=True)
 
@@ -15,7 +19,6 @@ class Category(models.Model):
         return self.display_name
 
 class Product(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     category = models.ForeignKey('Category', null=True, blank=True, on_delete=models.SET_NULL)
     sku = models.CharField(max_length=254, null=True, blank=True)
     name = models.CharField(max_length=254)
@@ -45,7 +48,6 @@ class Service(models.Model):
         ('16:30', '4:30 PM'),
     ]
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     category = models.ForeignKey('Category', null=True, blank=True, on_delete=models.SET_NULL)
     type = models.CharField(max_length=10, choices=LESSON_TYPES, default=GROUP)
     time_slots = models.CharField(max_length=5, choices=TIME_SLOTS)
