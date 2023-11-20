@@ -9,27 +9,27 @@ def all_products(request):
         'products' : products,
     }
 
-    return render(request, 'products/products.html', context)
+    return render(request, 'products-services/products.html', context)
 
 def surfing_equipment(request):
     """ A view to show all surfing equipment products """
 
-    products = Product.object.filter(category__name='Surfing Equipment')
+    products = Product.objects.filter(category__name='Surfing Equipment')
     context = {
         'products' : products,
     }
 
-    return render(request, 'products/surfing_equipment.html', context)
+    return render(request, 'products-services/surfing-equipment.html', context)
 
 def lessons(request):
     """ A view to show all services categorised as lessons """
 
-    services = Service.ojects.filter(category__name='Lessons')
+    services = Service.objects.filter(category__name='Lessons')
     context = {
         'services' : services,
     }
 
-    return render(request, 'services/lessons.html', context)
+    return render(request, 'products-services/lessons.html', context)
 
 def special_offers(request):
     """ A view to show products and services in specil offers """
@@ -46,4 +46,4 @@ def special_offers(request):
         'secondhand': secondhand,
     }
 
-    return render(request, 'special_offers/special_offers.html', context)
+    return render(request, 'products-services/special-offers.html', context)
