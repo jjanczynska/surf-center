@@ -14,7 +14,7 @@
             <div class="surf-container col-10 offset-1">
                 <div class="row mt-1 mb-2"></div>
                 <div class="row">
-                    {% for lesson in lessons %}
+                    {% for lesson in services %}
                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
                             <div class="card h-100 border-0">
                                 {% if lesson.image %}
@@ -27,14 +27,11 @@
                                 </a>
                                 {% endif %}
                                 <div class="card-body pb-0">
-                                    <p class="mb-0">{{ lesson.name }}</p>
+                                    <h5 class="card-title">{{ lesson.get_type_display }} Lesson</h5>
+                                    <p class="card-text">{{ lesson.description }}</p>
                                 </div>
                                 <div class="card-footer bg-white pt-0 border-0 text-left">
-                                    <div class="row">
-                                        <div class="col">
-                                            <p class="lead mb-0 text-left font-weight-bold">${{ lesson.price }}</p>
-                                        </div>
-                                    </div>
+                                    <p class="lead mb-0 text-left font-weight-bold">Price: ${{ lesson.price }}</p>
                                 </div>
                             </div>
                         </div>
