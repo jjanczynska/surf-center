@@ -16,15 +16,30 @@ class ProductAdmin(admin.ModelAdmin):
 class ServiceAdmin(admin.ModelAdmin):
     list_display = (
         'category',
-        'type',
-        'time_slots',
+        'get_type_display',
+        'price',
         'date',
-        'max_participants',
         'booked',
+        'image',
     )
+    ordering = (
+        'date',
+        'type',
+    )
+    list_filter = (
+        'type', 
+        'date',
+        'booked',
+        )
+    search_fields = (
+        'category__name', 
+        'date',
+        )
+    def get_type_display(self, obj):
+        return obj.get_type_display()
+    get_type_display.short_description = 'Type of Lesson'
 
-    list_filter = ('type', 'date', 'booked',)
-    search_fields = ('category__name', 'date',)
+    
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = (

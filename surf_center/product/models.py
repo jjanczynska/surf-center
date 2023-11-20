@@ -50,6 +50,8 @@ class Service(models.Model):
 
     category = models.ForeignKey('Category', null=True, blank=True, on_delete=models.SET_NULL)
     type = models.CharField(max_length=10, choices=LESSON_TYPES, default=GROUP)
+    price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    image = models.ImageField(null=True, blank=True)
     time_slots = models.CharField(max_length=5, choices=TIME_SLOTS)
     date = models.DateField()
     max_participants = models.PositiveIntegerField(default=1)
