@@ -4,9 +4,11 @@ from .models import Category, Product, Service
 def all_products(request):
     """ A view to show all the products """
     products = Product.objects.all()
+    services = Service.objects.filter(category__name="Lessons")
 
     context = {
         'products' : products,
+        'services' : services,
     }
 
     return render(request, 'products-services/products.html', context)
