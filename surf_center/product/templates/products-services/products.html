@@ -61,6 +61,41 @@
                             </div>
                         {% endif %}
                     {% endfor %}
+
+                    {% for service in services %}
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                        <div class="card h-100 border-0">
+                            {% if service.image %}
+                            <a href="">
+                                <img class="card-img-top img-fluid" src="{{ service.image.url }}" alt="{{ service.get_type_display }}">
+                            </a>
+                            {% else %}
+                            <a href="">
+                                <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}default_lesson_image.png" alt="{{ service.get_type_display }}">
+                            </a>
+                            {% endif %}
+                            <div class="card-body pb-0">
+                                <h5 class="card-title">{{ service.get_type_display }} Lesson</h5>
+                                <p class="card-text">
+                                    Date: {{ service.date|date:"M d, Y" }}<br>
+                                    Time: {{ service.get_time_slot_display }}<br>
+                                    Maximum Participants: {{ service.max_participants }}<br>
+                                    <small class="text-muted">{{ service.description }}</small>
+                                </p>
+                            </div>
+                            <div class="card-footer bg-white pt-0 border-0 text-left">
+                                <p class="lead mb-0 text-left font-weight-bold">Price: <span class="text-success">Contact for details</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    {% if forloop.counter|divisibleby:4 %}
+                        <div class="w-100 d-none d-xl-block mb-5"></div>
+                    {% elif forloop.counter|divisibleby:3 %}
+                        <div class="w-100 d-none d-lg-block d-xl-none mb-5"></div>
+                    {% elif forloop.counter|divisibleby:2 %}
+                        <div class="w-100 d-none d-sm-block d-md-block d-lg-none mb-5"></div>
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>
