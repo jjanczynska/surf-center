@@ -82,3 +82,12 @@ class Service(models.Model):
             return True
         else:
             return False
+
+    def calculate_total_price(self):
+        if self.type == self.GROUP:
+            return self.base_price * self.max_participants
+        return self.base_price
+
+    def __str__(self):
+        lesson_type = self.get_type_display()
+        return f"{lesson_type} Lesson on {self.date} at {self.time_slots}"

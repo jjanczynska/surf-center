@@ -16,24 +16,21 @@ class ProductAdmin(admin.ModelAdmin):
 class ServiceAdmin(admin.ModelAdmin):
     list_display = (
         'category',
-        'name',
         'get_type_display',
-        'price',
+        'base_price',
         'date',
         'booked',
         'image',
     )
-    ordering = (
-        'date',
-        'name',
-    )
+    ordering = ('date',)
+
     list_filter = (
         'type', 
         'date',
         'booked',
         )
+
     search_fields = (
-        'name',
         'category__name', 
         'date',
         )
