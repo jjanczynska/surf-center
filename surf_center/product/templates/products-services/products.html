@@ -77,8 +77,6 @@
                             <div class="card-body pb-0">
                                 <h5 class="card-title">{{ service.get_type_display }} Lesson</h5>
                                 <p class="card-text">
-                                    Date: {{ service.date|date:"M d, Y" }}<br>
-                                    Time: {{ service.get_time_slot_display }}<br>
                                     Maximum Participants: {{ service.max_participants }}<br>
                                     <small class="text-muted">{{ service.description }}</small>
                                 </p>

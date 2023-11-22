@@ -1,17 +1,34 @@
 from django.shortcuts import render
-from .models import Category, Product, Service
+from .models import Category, Product, Service, LessonSchedule
+from datetime import date
 
 def all_products(request):
     """ A view to show all the products """
     products = Product.objects.all()
     services = Service.objects.filter(category__name="Lessons")
+    lesson_schedules = LessonSchedule.objects.filter(date__gte=date.today(), is_available=True)
 
     context = {
         'products' : products,
         'services' : services,
+        'lesson_schedules' : lesson_schedules
     }
 
     return render(request, 'products-services/products.html', context)
+
+
+def lesson_detail(request, lesson_id):
+    """ A view to show individual lesson details """
+    lesson = get_object_or_404(Service, pk=lesson_id)
+    available_slots = LessonSchedule.objects.filter(service=lesson.type, date__gte=date.today(), is_available=True)
+
+    context = {
+        'lesson': lesson,
+        'available_slots': available_slots,
+    }
+
+    return render(request, 'products-services/lessons.html', context)
+
 
 def surfing_equipment(request):
     """ A view to show all surfing equipment products """
@@ -50,14 +67,15 @@ def special_offers(request):
     deals = Product.objects.filter(description__icontains='Deal')
     clearance = Product.objects.filter(description__icontains='Clearance')
     secondhand = Product.objects.filter(description__icontains='Secondhand')
-
-    service_offers = Service.object.filters(description__icontains='Special Offer')
+    service_offers = Service.objects.filter(is_special_offer=True)
+    product_offers = Product.objects.filter(is_special_offer=True)
 
     context = {
         'new_arrivals': new_arrivals,
         'deals': deals,
         'clearance': clearance,
         'secondhand': secondhand,
+        'product_offers'
         'service_offers': service_offers
     }
 

@@ -27,6 +27,7 @@ class Product(models.Model):
     rating = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     image_url = models.URLField(max_length=1024, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
+    is_special_offer = models.BooleanField(default=False, verbose_name="Special Offer")
 
     def __str__(self):
         return self.name
@@ -40,54 +41,38 @@ class Service(models.Model):
         (GROUP, 'Group Lesson'),
     ]
 
-    TIME_SLOTS = [
-        ('10:00', '10:00 AM'),
-        ('11:30', '11:30 AM'),
-        ('13:30', '1:30 PM'),
-        ('15:00', '3:00 PM'),
-        ('16:30', '4:30 PM'),
-    ]
-
     category = models.ForeignKey('Category', null=True, blank=True, on_delete=models.SET_NULL)
     type = models.CharField(max_length=10, choices=LESSON_TYPES, default=GROUP)
     base_price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
-    time_slots = models.CharField(max_length=5, choices=TIME_SLOTS)
-    date = models.DateField()
     max_participants = models.PositiveIntegerField(default=1)
     description = models.TextField()
-    booked = models.BooleanField(default=False)
+    is_special_offer = models.BooleanField(default=False, verbose_name="Special Offer")
 
     def save(self, *args, **kwargs):
-        if self.type == self.GROUP:
-            self.max_participants = 5
-            self.base_price = 15.00
-        elif self.type == self.PRIVATE:
-            self.max_participants = 1
-            self.base_price = 30.00
-
         super(Service, self).save(*args, **kwargs)
+    
+    @property
+    def price_per_participant(self):
+        return 30.00 if self.type == self.PRIVATE else 15.00
 
+    @property
+    def max_participants(self):
+        return 1 if self.type == self.PRIVATE else 5
+
+class LessonSchedule(models.Model):
+    TIME_SLOTS = [
+        ('09:30', '9:30 AM'),
+        ('11:00', '11:00 AM'),
+        ('13:00', '1:00 PM'),
+        ('14:30', '2:30 PM'),
+        ('16:00', '4:00 PM'),
+    ]
+
+    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    date = models.DateField()
+    time_slot = models.CharField(max_length=5, choices=TIME_SLOTS)
+    is_available = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.get_type_display()} on {self.date} at {self.get_time_slot_display()}"
-
-    def is_fully_booked(self):
-        return self.booked
-
-    def book_lesson(self):
-        if not self.is_fully_booked():
-            self.booked = True
-            self.save()
-            return True
-        else:
-            return False
-
-    def calculate_total_price(self):
-        if self.type == self.GROUP:
-            return self.base_price * self.max_participants
-        return self.base_price
-
-    def __str__(self):
-        lesson_type = self.get_type_display()
-        return f"{lesson_type} Lesson on {self.date} at {self.time_slots}"
+        return f"{self.service.get_type_display()} Lesson on {self.date} at {self.get_time_slot_display()}"
