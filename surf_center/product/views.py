@@ -41,11 +41,14 @@ def special_offers(request):
     clearance = Product.objects.filter(description__icontains='Clearance')
     secondhand = Product.objects.filter(description__icontains='Secondhand')
 
+    service_offers = Service.object.filters(description__icontains='Special Offer')
+
     context = {
         'new_arrivals': new_arrivals,
         'deals': deals,
         'clearance': clearance,
         'secondhand': secondhand,
+        'service_offers': service_offers
     }
 
     return render(request, 'products-services/special-offers.html', context)
