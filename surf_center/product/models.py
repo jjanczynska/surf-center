@@ -50,7 +50,7 @@ class Service(models.Model):
 
     category = models.ForeignKey('Category', null=True, blank=True, on_delete=models.SET_NULL)
     type = models.CharField(max_length=10, choices=LESSON_TYPES, default=GROUP)
-    price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    base_price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
     time_slots = models.CharField(max_length=5, choices=TIME_SLOTS)
     date = models.DateField()
@@ -61,8 +61,10 @@ class Service(models.Model):
     def save(self, *args, **kwargs):
         if self.type == self.GROUP:
             self.max_participants = 5
+            self.base_price = 15.00
         elif self.type == self.PRIVATE:
             self.max_participants = 1
+            self.base_price = 30.00
 
         super(Service, self).save(*args, **kwargs)
 
