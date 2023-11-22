@@ -27,8 +27,18 @@ def lessons(request):
     """ A view to show all services categorised as lessons """
 
     services = Service.objects.filter(category__name='Lessons')
+    no_lessons_available = False
+    all_lessons_booked = False
+
+    if not services:
+        no_lessons_available = True
+    elif all([service.booked for service in services]):
+        all_lessons_booked = True
+
     context = {
         'services' : services,
+        'no_lessons_available': no_lessons_available,
+        'all_lessons_booked': all_lessons_booked,
     }
 
     return render(request, 'products-services/lessons.html', context)
