@@ -1,11 +1,14 @@
 from django.shortcuts import render
 from .models import Category, Product, Service, LessonSchedule
 from datetime import date
+from django.db.models import Q
 
 def all_products(request):
     """ A view to show all the products """
     products = Product.objects.all()
-    services = Service.objects.filter(category__name="Lessons")
+    services = Service.objects.filter(
+        Q(category__name="private_lesson") | Q(category__name="group_lesson")
+    )
     lesson_schedules = LessonSchedule.objects.filter(date__gte=date.today(), is_available=True)
 
     context = {
@@ -61,7 +64,7 @@ def lessons(request):
     return render(request, 'products-services/lessons.html', context)
 
 def special_offers(request):
-    """ A view to show products and services in specil offers """
+    """ A view to show products and services in special offers """
 
     new_arrivals = Product.objects.filter(description__icontains='New Arrival')
     deals = Product.objects.filter(description__icontains='Deal')
@@ -75,8 +78,8 @@ def special_offers(request):
         'deals': deals,
         'clearance': clearance,
         'secondhand': secondhand,
-        'product_offers'
-        'service_offers': service_offers
+        'product_offers': product_offers,
+        'service_offers': service_offers,
     }
 
     return render(request, 'products-services/special-offers.html', context)
