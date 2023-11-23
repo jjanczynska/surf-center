@@ -139,7 +139,7 @@ input[type='text'], input[type='email'], textarea {
 input[type='text']:focus, input[type='email']:focus, textarea:focus {
     border-color: #329D9C;
 }
-
+/*
 .overlay {
     height: 100%;
     width: 100%;
@@ -150,9 +150,17 @@ input[type='text']:focus, input[type='email']:focus, textarea:focus {
     z-index: -1;
 }
 
+*/
 
+.card {
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .card-img-top {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
+    height: 300px;
+    object-fit: contain;
+    
+} 
