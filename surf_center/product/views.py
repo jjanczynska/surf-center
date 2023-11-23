@@ -36,7 +36,13 @@ def lesson_detail(request, lesson_id):
 def surfing_equipment(request):
     """ A view to show all surfing equipment products """
 
-    products = Product.objects.filter(category__name='Surfing Equipment')
+    products = Product.objects.filter(
+        Q(category__name='surf_boards') |
+        Q(category__name='water_boots') |
+        Q(category__name='wetsuits') |
+        Q(category__name='secondhand') |
+        Q(category__name='water_ponchos') 
+    )
     context = {
         'products' : products,
     }
@@ -46,14 +52,22 @@ def surfing_equipment(request):
 def lessons(request):
     """ A view to show all services categorised as lessons """
 
-    services = Service.objects.filter(category__name='Lessons')
+    services = Service.objects.filter(
+        Q(category__name='private_lesson') |
+        Q(category__name='group_lesson') 
+    )
     no_lessons_available = False
-    all_lessons_booked = False
+    all_lessons_booked = True
 
+    for service in services:
+        lesson_schedules = LessonSchedule.objects.filter(service=service, date__gte=date.today(), is_available=True)
+        if lesson_schedules.exists():
+            all_lessons_booked = False
+            break
+        
     if not services:
         no_lessons_available = True
-    elif all([service.booked for service in services]):
-        all_lessons_booked = True
+
 
     context = {
         'services' : services,
