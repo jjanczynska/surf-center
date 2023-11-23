@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Category, Product, Service, LessonSchedule
 from datetime import date
 from django.db.models import Q
@@ -20,19 +20,6 @@ def all_products(request):
     return render(request, 'products-services/products.html', context)
 
 
-def lesson_detail(request, lesson_id):
-    """ A view to show individual lesson details """
-    lesson = get_object_or_404(Service, pk=lesson_id)
-    available_slots = LessonSchedule.objects.filter(service=lesson.type, date__gte=date.today(), is_available=True)
-
-    context = {
-        'lesson': lesson,
-        'available_slots': available_slots,
-    }
-
-    return render(request, 'products-services/lessons.html', context)
-
-
 def surfing_equipment(request):
     """ A view to show all surfing equipment products """
 
@@ -49,6 +36,16 @@ def surfing_equipment(request):
 
     return render(request, 'products-services/surfing-equipment.html', context)
 
+
+def surfing_equipment_detail(request, product_id):
+    """ A view to show individual surfing equipent products details"""
+
+    product = get_object_or_404(Product, pk=product_id)
+
+    context = {'product': product}
+
+    return render (request, 'product/products-detail.html', context)
+
 def lessons(request):
     """ A view to show all services categorised as lessons """
 
@@ -64,7 +61,7 @@ def lessons(request):
         if lesson_schedules.exists():
             all_lessons_booked = False
             break
-        
+
     if not services:
         no_lessons_available = True
 
@@ -76,6 +73,18 @@ def lessons(request):
     }
 
     return render(request, 'products-services/lessons.html', context)
+
+def lesson_detail(request, lesson_id):
+    """ A view to show individual lesson details """
+    lesson = get_object_or_404(Service, pk=lesson_id)
+    available_slots = LessonSchedule.objects.filter(service=lesson.type, date__gte=date.today(), is_available=True)
+
+    context = {
+        'lesson': lesson,
+        'available_slots': available_slots,
+    }
+
+    return render(request, 'products-services/lessons_detail.html', context)
 
 def special_offers(request):
     """ A view to show products and services in special offers """
