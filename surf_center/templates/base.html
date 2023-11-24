@@ -119,11 +119,11 @@
                           Surfing Equipment
                       </a>
                       <div class="dropdown-menu border-0" aria-labelledby="navbarDropdownMenuEquipement">
-                          <a class="dropdown-item" href="">Surfboards</a>
-                          <a class="dropdown-item" href="">Wetsuits</a>
-                          <a class="dropdown-item" href="">Water Boots</a>
-                          <a class="dropdown-item" href="">Ponchos</a>
-                          <a class="dropdown-item" href="">Second Hand</a>
+                          <a class="dropdown-item" href="{% url 'surfing_equipment' %}?category=surf_boards">Surfboards</a>
+                          <a class="dropdown-item" href="{% url 'surfing_equipment' %}?category=wetsuits">Wetsuits</a>
+                          <a class="dropdown-item" href="{% url 'surfing_equipment' %}?category=water_boots">Water Boots</a>
+                          <a class="dropdown-item" href="{% url 'surfing_equipment' %}?category=water_ponchos">Ponchos</a>
+                          <a class="dropdown-item" href="{% url 'surfing_equipment' %}?category=secondhand">SecondHand</a>
                           <a class="dropdown-item" href="{% url 'surfing_equipment' %}">All Surfing Equipment</a>
                       </div>
                   </li>
@@ -135,7 +135,7 @@
                           <a class="dropdown-item" href="">New Arrivals</a>
                           <a class="dropdown-item" href="">Deals</a>
                           <a class="dropdown-item" href="">Clearance</a>
-                          <a class="dropdown-item" href="">Secondhand</a>
+                          <a class="dropdown-item" href="{% url 'surfing_equipment' %}?category=secondhand">Secondhand</a>
                           <a class="dropdown-item" href="{% url 'special_offers' %}">All Special Offers</a>
 
                       </div>
@@ -145,8 +145,8 @@
                           Lessons
                       </a>
                       <div class="dropdown-menu border-0" aria-labelledby="navbarDropdownLessons">
-                          <a class="dropdown-item" href="">Individual Lessons</a>
-                          <a class="dropdown-item" href="">Group Lessons</a>  
+                          <a class="dropdown-item" href="{% url 'lessons' %}?category=private_lesson">Individual Lessons</a>
+                          <a class="dropdown-item" href="{% url 'lessons' %}?category=group_lesson">Group Lessons</a>  
                           <a class="dropdown-item" href="{% url 'lessons' %}">All Lessons</a> 
                       </div>
                   </li>

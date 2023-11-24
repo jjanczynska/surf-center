@@ -12,12 +12,19 @@ def all_products(request):
     )
     lesson_schedules = LessonSchedule.objects.filter(date__gte=date.today(), is_available=True)
     query = None
+    categories = None
+
+    if request.GET:
+        if 'category' in request.GET:
+            categories = request.GET['category'].split(',')
+            products = products.filter(category__name__in=categories)
+            categories = Category.objects.filter(name__in=categories)
 
     if request.GET:
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:
-                messages.error(request, "You didnt't enter ant keywords!")
+                messages.error(request, "You didnt't enter any keywords!")
                 return redirect(reverse('products'))
 
             queries = Q(name__icontains=query) | Q(description__icontains=query)
@@ -28,6 +35,7 @@ def all_products(request):
         'services' : services,
         'lesson_schedules' : lesson_schedules,
         'search_term': query,
+        'current_categories': categories,
     }
 
     return render(request, 'products-services/products.html', context)
@@ -43,8 +51,18 @@ def surfing_equipment(request):
         Q(category__name='secondhand') |
         Q(category__name='water_ponchos') 
     )
+
+    categories = None
+
+    if request.GET:
+        if 'category' in request.GET:
+            categories = request.GET['category'].split(',')
+            products = products.filter(category__name__in=categories)
+            categories = Category.objects.filter(name__in=categories)
+
     context = {
         'products' : products,
+        'current_categories': categories,
     }
 
     return render(request, 'products-services/surfing-equipment.html', context)
@@ -69,6 +87,13 @@ def lessons(request):
     no_lessons_available = False
     all_lessons_booked = True
 
+    categories = None
+    if 'category' in request.GET:
+        categories = request.GET['category'].split(',')
+        services = Service.objects.filter(category__name__in=categories)
+ 
+
+
     for service in services:
         lesson_schedules = LessonSchedule.objects.filter(service=service, date__gte=date.today(), is_available=True)
         if lesson_schedules.exists():
@@ -83,6 +108,7 @@ def lessons(request):
         'services' : services,
         'no_lessons_available': no_lessons_available,
         'all_lessons_booked': all_lessons_booked,
+        'current_categories': categories,
     }
 
     return render(request, 'products-services/lessons.html', context)
