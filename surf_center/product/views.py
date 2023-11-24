@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from .models import Category, Product, Service, LessonSchedule
+from django.contrib import messages
 from datetime import date
 from django.db.models import Q
 
@@ -10,11 +11,23 @@ def all_products(request):
         Q(category__name="private_lesson") | Q(category__name="group_lesson")
     )
     lesson_schedules = LessonSchedule.objects.filter(date__gte=date.today(), is_available=True)
+    query = None
+
+    if request.GET:
+        if 'q' in request.GET:
+            query = request.GET['q']
+            if not query:
+                messages.error(request, "You didnt't enter ant keywords!")
+                return redirect(reverse('products'))
+
+            queries = Q(name__icontains=query) | Q(description__icontains=query)
+            products = products.filter(queries)
 
     context = {
         'products' : products,
         'services' : services,
-        'lesson_schedules' : lesson_schedules
+        'lesson_schedules' : lesson_schedules,
+        'search_term': query,
     }
 
     return render(request, 'products-services/products.html', context)
