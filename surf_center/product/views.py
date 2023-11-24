@@ -44,7 +44,7 @@ def surfing_equipment_detail(request, product_id):
 
     context = {'product': product}
 
-    return render (request, 'product/products-detail.html', context)
+    return render (request, 'products-services/surfing-equipment-detail.html', context)
 
 def lessons(request):
     """ A view to show all services categorised as lessons """
@@ -77,14 +77,14 @@ def lessons(request):
 def lesson_detail(request, lesson_id):
     """ A view to show individual lesson details """
     lesson = get_object_or_404(Service, pk=lesson_id)
-    available_slots = LessonSchedule.objects.filter(service=lesson.type, date__gte=date.today(), is_available=True)
+    available_slots = LessonSchedule.objects.filter(service=lesson, date__gte=date.today(), is_available=True)
 
     context = {
         'lesson': lesson,
         'available_slots': available_slots,
     }
 
-    return render(request, 'products-services/lessons_detail.html', context)
+    return render(request, 'products-services/lessons-detail.html', context)
 
 def special_offers(request):
     """ A view to show products and services in special offers """
