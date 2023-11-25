@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from .models import Category, Product, Service, LessonSchedule
 from django.contrib import messages
 from datetime import date
-from django.db.models.functions import Lower
+from django.db.models.functions import Lower, Coalesce
 from django.db.models import Q
+from django.db.models import Value, IntegerField
+
 
 def all_products(request):
     """ A view to show all the products """
@@ -11,32 +13,58 @@ def all_products(request):
     services = Service.objects.filter(
         Q(category__name="private_lesson") | Q(category__name="group_lesson")
     )
+
     lesson_schedules = LessonSchedule.objects.filter(date__gte=date.today(), is_available=True)
-    query = None
-    categories = None
 
-    if request.GET:
-        if 'category' in request.GET:
-            categories = request.GET['category'].split(',')
-            products = products.filter(category__name__in=categories)
-            categories = Category.objects.filter(name__in=categories)
+    all_categories = Category.objects.all()
 
-    if request.GET:
-        if 'q' in request.GET:
-            query = request.GET['q']
-            if not query:
-                messages.error(request, "You didnt't enter any keywords!")
-                return redirect(reverse('products'))
+    query = request.GET.get('q', '')
+    categories = request.GET.get('category', '').split(',') if 'category' in request.GET else []
+    sort = request.GET.get('sort', 'id')
+    direction = request.GET.get('direction', 'asc')
+    current_sorting = f'{sort}_{direction}'
 
-            queries = Q(name__icontains=query) | Q(description__icontains=query)
-            products = products.filter(queries)
+    if sort == 'reset':
+        products = products.order_by('id')
+        services = services.order_by('id')
+        current_sorting = 'None_None'
+    elif sort:
+        sortkey, direction = sort.split('_') if '_' in sort else (sort, 'asc')
+        descending = '-' if direction == 'desc' else ''
+
+    if query:
+        search_query = Q(name__icontains=query) | Q(description__icontains=query)
+        products = products.filter(search_query)
+        services = services.filter(search_query)
+
+    if categories:
+        products = products.filter(category__name__in=categories)
+        services = services.filter(category__name__in=categories)
+
+    descending = '-' if direction == 'desc' else ''
+    if sort in ['price', 'rating', 'name', 'category']:
+        if sort == 'price':
+            products = products.order_by(f'{descending}price')
+            services = services.order_by(f'{descending}base_price')
+        elif sort == 'rating':
+            products = products.order_by(f'{descending}rating')
+            # Services don't have ratings, use a default value
+            services = services.annotate(rating=Value(0, output_field=IntegerField())).order_by(f'{descending}rating')
+        elif sort == 'name':
+            products = products.annotate(lower_name=Lower('name')).order_by(f'{descending}lower_name')
+            services = services.annotate(lower_name=Lower('type')).order_by(f'{descending}lower_name')
+        elif sort == 'category':
+            products = products.order_by(f'{descending}category__name')
+            services = services.order_by(f'{descending}category__name')
+
 
     context = {
         'products' : products,
         'services' : services,
         'lesson_schedules' : lesson_schedules,
         'search_term': query,
-        'current_categories': categories,
+        'all_categories': all_categories,
+        'current_sorting': current_sorting,
     }
 
     return render(request, 'products-services/products.html', context)

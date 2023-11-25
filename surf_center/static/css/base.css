@@ -140,6 +140,7 @@ input[type='text']:focus, input[type='email']:focus, textarea:focus {
     border-color: #329D9C;
 }
 
+/* Overlay for displaing product detail */
 .overlay {
     height: 100%;
     width: 100%;
@@ -150,7 +151,7 @@ input[type='text']:focus, input[type='email']:focus, textarea:focus {
     z-index: -1;
 }
 
-
+/* Image card style */
 
 .card {
     height: 400px;
@@ -164,3 +165,23 @@ input[type='text']:focus, input[type='email']:focus, textarea:focus {
     object-fit: contain;
     
 } 
+
+/* Badge style */
+
+.category-badge {
+    display: inline-block;
+    margin: 5px;
+}
+
+.category-badge .badge {
+    background-color: #329D9C;
+    color: #f0f8ff;
+    font-weight: bold;
+    border: none;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.category-badge .badge:hover {
+    background-color: #205072;
+    transform: scale(1.05);
+}
