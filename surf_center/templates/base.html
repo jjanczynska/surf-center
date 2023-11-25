@@ -105,12 +105,12 @@
               <ul class="navbar-nav w-auto mx-auto">
                   <li class="nav-item dropdown">
                       <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'all_products' %}" id="navbarDropdownAll" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          All Products and Services
+                        All Products and Services
                       </a>
                       <div class="dropdown-menu border-0" aria-labelledby="navbarDropdownAll">
-                          <a class="dropdown-item" href="#">By Price</a>
-                          <a class="dropdown-item" href="#">By Rating</a>
-                          <a class="dropdown-item" href="#">By Category</a>
+                          <a class="dropdown-item" href="{% url 'surfing_equipment' %}?sort=price&direction=asc">By Price</a>
+                          <a class="dropdown-item" href="{% url 'surfing_equipment' %}?sort=rating&direction=desc">By Rating</a>
+                          <a class="dropdown-item" href="{% url 'all_products' %}?sort=category&direction=asc">By Category</a>
                           <a class="dropdown-item" href="{% url 'all_products' %}">All Products and Services</a>
                       </div>
                   </li>

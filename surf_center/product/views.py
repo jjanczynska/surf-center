@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from .models import Category, Product, Service, LessonSchedule
 from django.contrib import messages
 from datetime import date
+from django.db.models.functions import Lower
 from django.db.models import Q
 
 def all_products(request):
@@ -53,6 +54,20 @@ def surfing_equipment(request):
     )
 
     categories = None
+    sort = None
+    direction = None
+
+    if 'sort' in request.GET:
+        sortkey = request.GET['sort']
+        sort = sortkey
+        direction = request.GET['direction'] if 'direction' in request.GET else 'asc'
+
+        if sortkey == 'name':
+            sortkey = 'lower_name'
+            products = products.annotate(lower_name=Lower('name'))
+
+        sortkey = f'-{sortkey}' if direction == 'desc' else sortkey
+        products = products.order_by(sortkey)
 
     if request.GET:
         if 'category' in request.GET:
@@ -63,6 +78,7 @@ def surfing_equipment(request):
     context = {
         'products' : products,
         'current_categories': categories,
+        'current_sorting' : f'{sort}_{direction}'
     }
 
     return render(request, 'products-services/surfing-equipment.html', context)
@@ -87,12 +103,20 @@ def lessons(request):
     no_lessons_available = False
     all_lessons_booked = True
 
+    sort = None
+    direction = None
     categories = None
+
+    if 'sort' in request.GET:
+        sortkey = request.GET['sort']
+        sort = sortkeydirection = request.GET['direction'] if 'direction' in request.GET else 'asc'
+
+        sortkey = f'-{sortkey}' if direction == 'desc' else sortkey
+        services = services.order_by(sortkey)
+
     if 'category' in request.GET:
         categories = request.GET['category'].split(',')
         services = Service.objects.filter(category__name__in=categories)
- 
-
 
     for service in services:
         lesson_schedules = LessonSchedule.objects.filter(service=service, date__gte=date.today(), is_available=True)
@@ -109,6 +133,7 @@ def lessons(request):
         'no_lessons_available': no_lessons_available,
         'all_lessons_booked': all_lessons_booked,
         'current_categories': categories,
+        'current_sorting': f'{sort}_{direction}',
     }
 
     return render(request, 'products-services/lessons.html', context)
