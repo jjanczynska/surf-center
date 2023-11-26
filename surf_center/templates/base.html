@@ -83,7 +83,7 @@
                   </div>
                 </div> 
                 <!-- Shopping Basket--> 
-                <a href="#" class="nav-link shopping-basket-link">
+                <a href="{% url 'view_bag' %}" class="nav-link shopping-basket-link">
                   <i class="fas fa-shopping-cart"></i>
                   {% if grand_total %}
                       <span class="badge badge-info">${{ grand_total|floatformat:2 }}</span>
