@@ -20,7 +20,7 @@ class ServiceAdmin(admin.ModelAdmin):
     list_display = (
         'category',
         'get_type_display',
-        'base_price',
+        'price',
         'max_participants',
         'is_special_offer',
         'image',

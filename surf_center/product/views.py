@@ -45,14 +45,14 @@ def all_products(request):
     if sort in ['price', 'rating', 'name', 'category']:
         if sort == 'price':
             products = products.order_by(f'{descending}price')
-            services = services.order_by(f'{descending}base_price')
+            services = services.order_by(f'{descending}price')
         elif sort == 'rating':
             products = products.order_by(f'{descending}rating')
             # Services don't have ratings, use a default value
             services = services.annotate(rating=Value(0, output_field=IntegerField())).order_by(f'{descending}rating')
         elif sort == 'name':
             products = products.annotate(lower_name=Lower('name')).order_by(f'{descending}lower_name')
-            services = services.annotate(lower_name=Lower('type')).order_by(f'{descending}lower_name')
+            services = services.annotate(lower_get_type_display=Lower('type')).order_by(f'{descending}lower_get_type_display')
         elif sort == 'category':
             products = products.order_by(f'{descending}category__name')
             services = services.order_by(f'{descending}category__name')
