@@ -169,7 +169,7 @@ def lessons(request):
 def lesson_detail(request, lesson_id):
     """ A view to show individual lesson details """
     lesson = get_object_or_404(Service, pk=lesson_id)
-    available_slots = LessonSchedule.objects.filter(service=lesson, date__gte=date.today(), is_available=True)
+    available_slots = LessonSchedule.objects.filter(service=lesson, date__gte=date.today(), is_available=True).order_by('date', 'time_slot')
 
     context = {
         'lesson': lesson,
