@@ -16,15 +16,27 @@ def add_to_bag(request, item_id, item_type):
 
     bag = request.session.get('bag', {'products': {}, 'lessons': {}})
     redirect_url = request.POST.get('redirect_url')
+    size = None
+    if 'product_size' in request.POST:
+        size = request.POST['size']
 
     if item_type == 'product':
         quantity = int(request.POST.get('quantity', 1))
         product = get_object_or_404(Product, pk=item_id)
 
-        if item_id in bag['products']:
-            bag['products'][item_id] += quantity
+        if size:
+            if item_id in bag['products']:
+                if size in bag['products'][item_id].get('items_by_size', {}):
+                    bag['products'][item_id]['items_by_size'][size] += quantity
+                else:
+                    bag['products'][item_id]['items_by_size'] = {size: quantity}
+            else:
+                bag['products'][item_id] = {'items_by_size': {size: quantity}}
         else:
-            bag['products'][item_id] = quantity
+                if item_id in bag['products']:
+                    bag['products'][item_id] += quantity
+                else:
+                    bag['products'][item_id] = quantity
 
     elif item_type == 'lesson':
         quantity = int(request.POST.get('quantity', 1))

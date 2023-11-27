@@ -18,19 +18,36 @@ def bag_contents(request):
     # Adding products to the bag
     products = bag.get('products', {})
 
-    for product_id, quantity in bag.get('products', {}).items():
+    for product_id, item_data in products.items():
         product = get_object_or_404(Product, pk=product_id)
-        subtotal = quantity * product.price
-        product_total += subtotal
-        total += subtotal
-        product_count += quantity
-        bag_items.append({
-            'id': product_id,
-            'quantity': quantity,
-            'item': product,
-            'type': 'product',
-            'subtotal': subtotal,
-        })
+
+        if isinstance(item_data, dict):
+            for size, quantity in item_data['items_by_size'].items():
+                subtotal = quantity * product.price
+                product_total += subtotal
+                total += subtotal
+                product_count += quantity
+                bag_items.append({
+                    'id': product_id,
+                    'quantity': quantity,
+                    'item': product,
+                    'type': 'product',
+                    'size': size,
+                    'subtotal': subtotal,
+                })
+
+        else:
+            subtotal = item_data * product.price
+            product_total += subtotal
+            total += subtotal
+            product_count += item_data
+            bag_items.append({
+                'id': product_id,
+                'quantity': item_data,
+                'item': product,
+                'type': 'product',
+                'subtotal': subtotal,
+            })       
 
     # calculating delivery for products
 
