@@ -227,3 +227,67 @@ input[type='text']:focus, input[type='email']:focus, textarea:focus {
       #329D9C 20px,
     );
 }
+
+/* Form Style */
+
+.table td .update-form {
+    width: 100%;
+}
+
+.table .qty_input {
+    width: 50px; 
+    text-align: center;
+}
+
+.table .btn {
+    padding: 0.25rem 0.5rem; 
+}
+
+.update-form .form-group {
+    margin-bottom: 0;
+}
+
+.update-form .input-group {
+    justify-content: center;
+}
+
+.decrement-qty, .increment-qty {
+    padding: 0 5px;
+}
+
+.update-link, .remove-item {
+    display: block;
+    text-align: center;
+    margin-top: 5px; 
+}
+
+.table .input-group, .table .form-control, .table .btn {
+    font-size: 0.875rem; 
+}
+
+/* Responsive design for forms */
+
+@media (max-width: 768px) {
+
+    .update-form .input-group {
+        flex-wrap: wrap;
+    }
+
+    .update-form .input-group > * {
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+
+    .update-form .input-group .input-group-prepend,
+    .update-form .input-group .input-group-append {
+        justify-content: center;
+        margin-top: 5px;
+    }
+
+    .qty_input {
+        order: 2;
+        max-width: 80px; 
+        margin-top: 5px; 
+        margin-bottom: 5px; 
+    }
+}
