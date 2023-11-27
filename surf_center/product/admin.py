@@ -35,17 +35,17 @@ class ServiceAdmin(admin.ModelAdmin):
     get_type_display.short_description = 'Type of Lesson'
 
 class LessonScheduleAdmin(admin.ModelAdmin):
-    list_display = ('service', 'date', 'time_slot', 'is_available')
-    list_filter = ('date', 'service__type','is_available' )
-    search_fields = ('service__name', 'date',)
-    actions = ['mark_unavailable', 'mark_available']
+    list_display = ('date', 'time_slot', 'is_booked', 'service')
+    list_filter = ('date', 'is_booked', 'service' )
+    search_fields = ('date', 'service__type')
+    actions = ['mark_as_booked', 'mark_available']
 
-    def mark_unavailable(self, request, queryset):
-        queryset.update(is_available=False)
-    mark_unavailable.short_description = "Mark selected schedules as unavailable"
+    def mark_as_booked(self, request, queryset):
+        queryset.update(is_abooked=True)
+    mark_as_booked.short_description = "Mark selected schedules as booked"
 
     def mark_available(self, request, queryset):
-        queryset.update(is_available=True)
+        queryset.update(is_booked=False)
     mark_available.short_description = "Mark selected schedules as available"
 
 class CategoryAdmin(admin.ModelAdmin):

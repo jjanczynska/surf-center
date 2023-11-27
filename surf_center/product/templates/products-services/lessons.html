@@ -28,7 +28,7 @@
                                     {% endif %}
                                     <div class="card-body">
                                         <h5 class="card-title">{{ service.get_type_display }}</h5>
-                                        <p> Maximum Participants: {{ service.max_participants }}</p> 
+                                        <p> Maximum Participants: {{ service.get_max_participants }}</p> 
                                     </div>
                                     <div class="card-footer bg-white border-0">
                                         <p class="lead mb-0">Price: ${{ service.price }}per person</p>

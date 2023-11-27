@@ -49,6 +49,9 @@ class Service(models.Model):
     description = models.TextField()
     is_special_offer = models.BooleanField(default=False, verbose_name="Special Offer")
 
+    def get_max_participants(self):
+        return 1 if self.type == self.PRIVATE else 5
+
     def save(self, *args, **kwargs):
         super(Service, self).save(*args, **kwargs)
     
@@ -68,11 +71,10 @@ class LessonSchedule(models.Model):
         ('14:30', '2:30 PM'),
         ('16:00', '4:00 PM'),
     ]
-
-    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    service = models.ForeignKey(Service, null=False, on_delete=models.CASCADE, related_name='lesson_schedules')
     date = models.DateField()
     time_slot = models.CharField(max_length=5, choices=TIME_SLOTS)
-    is_available = models.BooleanField(default=True)
+    is_booked = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.service.get_type_display()} Lesson on {self.date} at {self.get_time_slot_display()}"
+        return f"Lesson on {self.date} at {self.get_time_slot_display()}"

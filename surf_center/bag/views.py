@@ -32,29 +32,22 @@ def add_to_bag(request, item_id, item_type):
         selected_date = request.POST.get('date')
         selected_time_slot = request.POST.get('time_slot')
 
-    try:
-            lesson_schedule = LessonSchedule.objects.get(
-                service=lesson, 
-                date=selected_date, 
-                time_slot=selected_time_slot,
-                is_available=True
-            )
+        if LessonSchedule.objects.filter(date=selected_date, time_slot=selected_time_slot, is_booked=True).exists():
+            return HttpResponse("Sorry but this time slot is already booked", status=400)
+        
 
-    except LessonSchedule.DoesNotExist:
-        return HttpResponse("Selected time slot is not available", status=400)
-
-
-
-        lesson_details = {
-            'date': selected_date,
-            'time_slot': selected_time_slot,
-            'quantity': quantity,
-            'total_price': Decimal(quantity) * lesson.price_per_participant()
-        }
-
-        lesson_key = f"{item_id}_{selected_date}_{selected_time_slot}"
-        bag['lessons'][lesson_key] = lesson_details
-
+        lesson_key = f"{selected_date}_{selected_time_slot}"
+        if lesson_key not in bag['lessons']:
+            bag['lessons'][lesson_key] = {
+                'item_id': item_id,
+                'quantity': quantity,
+                'details': {
+                    'date': selected_date,
+                    'time_slot': selected_time_slot,
+                    'total_price': quantity * lesson.price_per_participant
+                }
+            }
+        
     request.session['bag'] = bag
     return redirect(redirect_url)
 

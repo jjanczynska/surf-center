@@ -16,9 +16,86 @@
     <div class="row">
         <div class="col">
             {% if bag_items %}
-            <div class="table-responsive rounded "></div>
-            {% else %}
-            <p class="lead mb-5"></p>
+            <div class="table-responsive rounded ">
+                <table class="table table-sm table-borderless">
+                    <thead class="text-black">
+                        <tr>
+                            <th scope="col">Product Info</th>
+                            <th scope="col"></th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Qty</th>
+                            <th scope="col">Subtotal</th>
+                        </tr>
+                    </thead>
+
+                    {% for item in bag_items %}
+                        {% if item.type == 'product' %}
+                            <tr>
+                                <td class="p-3 w-25">
+                                    <img class="img-fluid rounded" src="{{ item.item.image.url }}">
+                                </td>
+                                <td class="py-3">
+                                    <p class="my-0"><strong>{{ item.item.name }}</strong></p>
+                                    <p class="my-0 small text-muted">SKU: {{ item.item.sku|upper }}</p>
+                                </td>
+                                <td class="py-3">
+                                    <p class="my-0">${{ item.item.price }}</p>
+                                </td>
+                                <td class="py-3">
+                                    <p class="my-0">{{ item.quantity }}</p>
+                                </td>
+                                <td class="py-3">
+                                    <p class="my-0">${{ item.subtotal }}</p>
+                                </td>
+                            </tr>
+                        {% elif item.type == 'lesson' %}
+                            <tr>
+                                <td class="p-3 w-25">
+                                    <img class="img-fluid rounded" src="{{ item.item.image.url }}">
+                                </td>
+                                <td class="py-3">
+                                    <p class="my-0"><strong>{{ item.item.get_type_display }}</strong></p>
+                                    <p class="my-0 small text-muted">Date: {{ item.details.date }}</p>
+                                    <p class="my-0 small text-muted">Time Slot: {{ item.details.time_slot }}</p>
+                                </td>
+                                <td class="py-3">
+                                    <p class="my-0">${{ item.item.price }}</p>
+                                </td>
+                                <td class="py-3">
+                                    <p class="my-0">{{ item.details.participants }}</p>
+                                </td>
+                                <td class="py-3">
+                                    <p class="my-0">${{ item.subtotal }}</p>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    <tr>
+                        <td colspan="5" class="pt-5 text-right">
+                            <h6><strong>Bag Total: ${{ total|floatformat:2 }}</strong></h6>
+                            <h6>Delivery: ${{ delivery|floatformat:2 }}</h6>
+                            <h4 class="mt-4"><strong>Grand Total: ${{ grand_total|floatformat:2 }}</strong></h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="text-right">
+                            <a href="{% url 'all_products' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                                <span class="icon">
+                                    <i class="fas fa-chevron-left"></i>
+                                </span>
+                                <span class="text-uppercase">Keep Shopping</span>
+                            </a>
+                            <a href="{% url 'all_products' %}" class="btn btn-black rounded-0 btn-lg">
+                                <span class="text-uppercase">Secure Checkout</span>
+                                <span class="icon">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <p class="lead mb-5">Your bag is empty</p>
             <a href="{% url 'all_products' %}" class="btn btn-outline-black rounded-0 btn-lg">
                 <span class="icon">
                     <i class="fas fa-chevron-left"></i>
