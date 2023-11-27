@@ -51,7 +51,7 @@ def bag_contents(request):
         lesson_id = lesson_info['item_id']
         quantity = lesson_info['quantity']
         lesson = get_object_or_404(Service, pk=lesson_id)
-
+        participants = lesson_info.get('quantity', 1)
         date = lesson_info['details'].get('date', 'Not Specified')
         time_slot = lesson_info['details'].get('time_slot', 'Not Specified')
 
@@ -65,7 +65,8 @@ def bag_contents(request):
             'type': 'lesson',
             'subtotal': total_price_per_lesson,
             'date' : date,
-            'time_slot' : time_slot
+            'time_slot' : time_slot,
+            'participants' : participants
         })
 
     grand_total = total + delivery

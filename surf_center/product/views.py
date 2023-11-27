@@ -14,7 +14,7 @@ def all_products(request):
         Q(category__name="private_lesson") | Q(category__name="group_lesson")
     )
 
-    lesson_schedules = LessonSchedule.objects.filter(date__gte=date.today(), is_available=True)
+    lesson_schedules = LessonSchedule.objects.filter(date__gte=date.today(), is_booked=False)
 
     all_categories = Category.objects.all()
 
