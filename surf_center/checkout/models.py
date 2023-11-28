@@ -1,4 +1,10 @@
+import uuid
+
 from django.db import models
+from django.db.models import Sum
+from django.conf import settings
+from product.models import Product, Service, LessonSchedule
+
 
 # Create your models here.
 
@@ -17,3 +23,32 @@ class Order(models.Model):
     delivery_cost = models.DecimalField(max_digits=6, decimal_places=2, null=False, default=0)
     order_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
     grand_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
+
+
+class OrderLineItem(models.Model):
+    order = models.ForeignKey(Order, null=False, blank=False, on_delete=models.CASCADE, related_name='lineitems')
+    product = models.ForeignKey(Product, null=False, blank=False, on_delete=models.CASCADE)
+    quantity = models.IntegerField(null=False, blank=False, default=0)
+    lineitem_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
+
+    def save(self, *args, **kwargs):
+        self.lineitem_total = self.product.price * self.quantity
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'SKU {self.product.sku} on order {self.order.order_number}'
+
+class LessonLineItem(models.Model):
+    order = models.ForeignKey(Order, null=False, blank=False, on_delete=models.CASCADE, related_name='lessonitems')
+    service = models.ForeignKey(Service, null=False, blank=False, on_delete=models.CASCADE)
+    quantity = models.IntegerField(null=False, blank=False, default=0)
+    date = models.DateField(null=False, blank=False)
+    time_slot = models.CharField(max_length=5, choices=LessonSchedule.TIME_SLOTS)
+    lineitem_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
+
+    def save(self, *args, **kwargs):
+        self.lineitem_total = self.service.price_per_participant * self.quantity
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'{self.service.type} lesson on {self.date} at {self.time_slot}'
