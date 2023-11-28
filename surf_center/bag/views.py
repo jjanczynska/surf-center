@@ -18,7 +18,7 @@ def add_to_bag(request, item_id, item_type):
     redirect_url = request.POST.get('redirect_url')
     size = None
     if 'product_size' in request.POST:
-        size = request.POST['size']
+        size = request.POST['product_size']
 
     if item_type == 'product':
         quantity = int(request.POST.get('quantity', 1))
@@ -44,6 +44,10 @@ def add_to_bag(request, item_id, item_type):
         selected_date = request.POST.get('date')
         selected_time_slot = request.POST.get('time_slot')
 
+        if not selected_date or not selected_time_slot:
+            messages.error(request, "You must include a date and time for lessons.")
+            return redirect(redirect_url)
+        
         if LessonSchedule.objects.filter(date=selected_date, time_slot=selected_time_slot, is_booked=True).exists():
             return HttpResponse("Sorry but this time slot is already booked", status=400)
         
@@ -70,7 +74,7 @@ def update_bag(request, item_id, item_type):
     bag = request.session.get('bag', {'products': {}, 'lessons': {}})
     size = None
     if 'product_size' in request.POST:
-        size = request.POST['size']
+        size = request.POST['product_size']
 
     if item_type == 'product':
         quantity = int(request.POST.get('quantity', 1))
