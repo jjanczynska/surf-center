@@ -6,27 +6,27 @@ from .models import Order, ProductsLineItem, LessonLineItem
 @receiver(post_save, sender=ProductsLineItem)
 def update_order_on_product_save(sender, instance, created, **kwargs):
     """
-    Update order total on Productlineitem update/create
+    Update order total on ProductsLineItem update/create
     """
     instance.order.update_total()
 
 @receiver(post_delete, sender=ProductsLineItem)
 def update_order_on_product_delete(sender, instance, **kwargs):
-     """
-    Update order total on Productlineitem delete
+    """
+    Update order total on ProductsLineItem delete
     """
     instance.order.update_total()
 
 @receiver(post_save, sender=LessonLineItem)
 def update_order_on_lesson_save(sender, instance, created, **kwargs):
     """
-    Update order total on Lessonlineitem update/create
+    Update order total on LessonLineItem update/create
     """
     instance.order.update_total()
 
 @receiver(post_delete, sender=LessonLineItem)
-def update_order_on__lesson_save(sender, instance, **kwargs):
-     """
-    Update order total on Lessonlineitem delete
+def update_order_on_lesson_delete(sender, instance, **kwargs):  
+    """
+    Update order total on LessonLineItem delete
     """
     instance.order.update_total()
