@@ -36,7 +36,7 @@ def add_to_bag(request, item_id, item_type):
                 bag['products'][item_id] = {'items_by_size': {size: quantity}}
         else:
             bag['products'][item_id] = bag['products'].get(item_id, 0) + quantity
-             messages.success(request, f'Added {product.name} to your bag')
+            messages.success(request, f'Added {product.name} to your bag')
   
 
     elif item_type == 'lesson':
@@ -50,7 +50,8 @@ def add_to_bag(request, item_id, item_type):
             return redirect(redirect_url)
         
         if LessonSchedule.objects.filter(date=selected_date, time_slot=selected_time_slot, is_booked=True).exists():
-            return HttpResponse("Sorry but this time slot is already booked", status=400)
+            messages.error(request, "Sorry, but this time slot is already booked.")
+            return redirect(redirect_url)
         
 
         lesson_key = f"{selected_date}_{selected_time_slot}"
@@ -64,7 +65,9 @@ def add_to_bag(request, item_id, item_type):
                     'total_price': quantity * lesson.price_per_participant
                 }
             }
-        
+            messages.success(request, f'Added {item_type} to your bag')
+
+
     request.session['bag'] = bag
     return redirect(redirect_url)
 
@@ -84,13 +87,17 @@ def update_bag(request, item_id, item_type):
         if size:
             if quantity > 0:
                     bag['products'][item_id]['items_by_size'] = {size: quantity}
+                    messages.success(request, f'Updated {product.name} (Size: {size}) quantity to {quantity} in your bag')
             else:
                 del bag['products'][item_id]['items_by_size'][size]
+                messages.success(request, f'Removed {product.name} (Size: {size}) from your bag')
         else:
             if quantity > 0:
                     bag['products'][item_id] = quantity
+                    messages.success(request, f'Updated {product.name} quantity to {quantity} in your bag')
             else:
                 bag['products'].pop[item_id]
+                messages.success(request, f'Removed {product.name} from your bag')
                  
 
     elif item_type == 'lesson':
@@ -103,7 +110,9 @@ def update_bag(request, item_id, item_type):
         if lesson_key not in bag['lessons']:
             bag['lessons'][lesson_key]['quantity'] = quantity
             bag['lessons'][lesson_key]['details']['total_price'] = quantity * lesson.price_per_participant
+            messages.success(request, f'Updated {item.type} on {selected_date} at {selected_time_slot} to {quantity} participants')
         else:
+            messages.error(request, "Lesson time slot not found in your bag")
             bag['lessons'][lesson_key] = {
                 'item_id': item_id,
                 'quantity': quantity,
@@ -132,8 +141,10 @@ def remove_from_bag(request, item_id):
                 del bag['products'][item_id]['items_by_size'][size]
                 if not bag['products'][item_id]['items_by_size']:
                     del bag['products'][item_id]
+                messages.success(request, f'Removed {product.name} (Size: {size}) from your bag')
             else:
                 del bag['products'][item_id]
+                messages.success(request, f'Removed {product.name} from your bag')
 
         elif item_type == 'lesson':
             lesson = get_object_or_404(Service, pk=item_id)
@@ -141,6 +152,7 @@ def remove_from_bag(request, item_id):
             selected_time_slot = request.POST.get('time_slot', None)
             lesson_key = f"{selected_date}_{selected_time_slot}"
             del bag['lessons'][lesson_key]
+            messages.success(request, f'Removed {lesson.name} lesson on {selected_date} at {selected_time_slot} from your bag')
 
         request.session['bag'] = bag
         return HttpResponse(status=200)
