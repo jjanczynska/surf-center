@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.http import HttpResponse
 from product.models import Product, Service, LessonSchedule
-from decimal import Decimal
+from django.contrib import messages
 import datetime
 
 # Create your views here.
@@ -36,6 +36,7 @@ def add_to_bag(request, item_id, item_type):
                 bag['products'][item_id] = {'items_by_size': {size: quantity}}
         else:
             bag['products'][item_id] = bag['products'].get(item_id, 0) + quantity
+             messages.success(request, f'Added {product.name} to your bag')
   
 
     elif item_type == 'lesson':
@@ -90,6 +91,7 @@ def update_bag(request, item_id, item_type):
                     bag['products'][item_id] = quantity
             else:
                 bag['products'].pop[item_id]
+                 
 
     elif item_type == 'lesson':
         quantity = int(request.POST.get('quantity', 1))
