@@ -16,27 +16,27 @@ def add_to_bag(request, item_id, item_type):
 
     bag = request.session.get('bag', {'products': {}, 'lessons': {}})
     redirect_url = request.POST.get('redirect_url')
-    size = None
-    if 'product_size' in request.POST:
-        size = request.POST['product_size']
+    size = request.POST.get('product_size', None)
+    quantity = int(request.POST.get('quantity', 1))
+    product = get_object_or_404(Product, pk=item_id)
+
+    if product.has_sizes:
+        size = request.POST.get('product_size')  
+    else:
+        size = None 
 
     if item_type == 'product':
-        quantity = int(request.POST.get('quantity', 1))
-        product = get_object_or_404(Product, pk=item_id)
-
         if size:
             if item_id in bag['products']:
-                if size in bag['products'][item_id].get('items_by_size', {}):
-                    bag['products'][item_id]['items_by_size'][size] += quantity
+                if isinstance(bag['products'][item_id], dict):
+                    bag['products'][item_id]['items_by_size'][size] = bag['products'][item_id]['items_by_size'].get(size, 0) + quantity
                 else:
-                    bag['products'][item_id]['items_by_size'] = {size: quantity}
+                    bag['products'][item_id] = {'items_by_size': {size: quantity}}
             else:
                 bag['products'][item_id] = {'items_by_size': {size: quantity}}
         else:
-                if item_id in bag['products']:
-                    bag['products'][item_id] += quantity
-                else:
-                    bag['products'][item_id] = quantity
+            bag['products'][item_id] = bag['products'].get(item_id, 0) + quantity
+  
 
     elif item_type == 'lesson':
         quantity = int(request.POST.get('quantity', 1))
@@ -89,7 +89,7 @@ def update_bag(request, item_id, item_type):
             if quantity > 0:
                     bag['products'][item_id] = quantity
             else:
-                bag.pop[item_id]
+                bag['products'].pop[item_id]
 
     elif item_type == 'lesson':
         quantity = int(request.POST.get('quantity', 1))
@@ -99,6 +99,9 @@ def update_bag(request, item_id, item_type):
 
         lesson_key = f"{selected_date}_{selected_time_slot}"
         if lesson_key not in bag['lessons']:
+            bag['lessons'][lesson_key]['quantity'] = quantity
+            bag['lessons'][lesson_key]['details']['total_price'] = quantity * lesson.price_per_participant
+        else:
             bag['lessons'][lesson_key] = {
                 'item_id': item_id,
                 'quantity': quantity,
