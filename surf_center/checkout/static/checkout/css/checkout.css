@@ -1,0 +1,101 @@
+/* checkout.css */
+
+.checkout-container {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.checkout-header {
+    font-family: 'Lato', sans-serif;
+    color: #205072;
+    text-align: center;
+    padding: 20px 0;
+
+}
+
+.order-summary {
+    background-color: #f0f0f0;
+    border: 1px solid #333;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.order-summary h3 {
+    color: #205072;
+    font-family: 'Lato', sans-serif;
+}
+
+.order-summary-item {
+    border-bottom: 1px solid #333; 
+    padding: 10px 0;
+}
+
+.order-summary-item:last-child {
+    border-bottom: none; 
+}
+
+.order-summary-item strong {
+    color: #205072; 
+}
+
+/* Styles for the Order Total Section */
+.order-totals {
+    text-align: right;
+}
+
+.order-totals p {
+    color: #205072; /* Dark blue text */
+}
+
+/* Styles for the Checkout Form */
+.checkout-form {
+    background-color: #f0f0f0; 
+    border: 1px solid #333; 
+    padding: 15px;
+    border-radius: 5px; 
+}
+
+.checkout-form fieldset {
+    border: 1px solid #329D9C; 
+    border-radius: 5px; 
+    padding: 10px;
+    margin-bottom: 20px; 
+}
+
+.checkout-form legend {
+    color: #205072; 
+    font-weight: bold;
+}
+
+
+.checkout-form input,
+.checkout-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #333; 
+    border-radius: 5px; 
+    margin-bottom: 10px; 
+}
+
+.checkout-form input[type="submit"] {
+    background-color: #205072; 
+    color: #ffffff; 
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px; 
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+.checkout-form input[type="submit"]:hover {
+    background-color: #329D9C; 
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .order-summary,
+    .checkout-form {
+        margin-top: 10px;
+    }
+}
