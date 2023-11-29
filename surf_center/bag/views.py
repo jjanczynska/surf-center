@@ -48,6 +48,11 @@ def add_to_bag(request, item_id, item_type):
         if not selected_date or not selected_time_slot:
             messages.error(request, "You must include a date and time for lessons.")
             return redirect(redirect_url)
+
+        booked_count = LessonSchedule.objects.filter(service=lesson, date=selected_date, time_slot=selected_time_slot).count()
+        if booked_count >= lesson.max_participants:
+            messages.error(request, f'Sorry, the selected lesson slot is fully booked.')
+            return redirect(redirect_url)
         
         if LessonSchedule.objects.filter(date=selected_date, time_slot=selected_time_slot, is_booked=True).exists():
             messages.error(request, "Sorry, but this time slot is already booked.")
