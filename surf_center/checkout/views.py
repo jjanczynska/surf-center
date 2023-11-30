@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
@@ -85,10 +86,6 @@ def checkout(request):
 
         order_form = OrderForm()
 
-        if not stripe_public_key:
-            messages.warning(request, 'Stripe public key is missing. \
-                Did you forget to set it in your environment?')
-        
         context =  bag_contents(request)  
         context = {
             'order_form': order_form,
@@ -113,7 +110,7 @@ def checkout_success(request, order_number):
     if 'bag' in request.session:
         del request.session['bag']
 
-    template = 'checkout/checkout_success.html'
+    template = 'checkout/checkout-success.html'
     context = {
         'order': order,
     }
