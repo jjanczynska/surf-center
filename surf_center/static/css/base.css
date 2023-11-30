@@ -96,7 +96,31 @@ body {
     color: #ffffff;
 }
 
+/* Index page body style */
 
+.hero-section {
+    background: url('../../media/pexels-daniel-torobekov-15036515.jpg') no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .hero-text h1 {
+    color: #ff7043;
+    text-align: right;
+    padding-right: 10px;
+    font-size: 4em;
+    font-weight: bold;
+    font-family: 'Cabin Sketch';
+  }
+
+  .hero-text p {
+    color: #ff7043;
+    text-align: right;
+    padding-right: 10px;
+    font-size: 3em;
+    font-weight: bold;
+  }
 
 /* Footer Styles */
 
