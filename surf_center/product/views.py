@@ -6,6 +6,8 @@ from django.db.models.functions import Lower, Coalesce
 from django.db.models import Q
 from django.db.models import Value, IntegerField
 
+from .forms import ProductForm
+
 
 def all_products(request):
     """ A view to show all the products """
@@ -189,20 +191,23 @@ def lesson_detail(request, lesson_id):
 def special_offers(request):
     """ A view to show products and services in special offers """
 
-    new_arrivals = Product.objects.filter(description__icontains='New Arrival')
-    deals = Product.objects.filter(description__icontains='Deal')
-    clearance = Product.objects.filter(description__icontains='Clearance')
-    secondhand = Product.objects.filter(description__icontains='Secondhand')
     service_offers = Service.objects.filter(is_special_offer=True)
     product_offers = Product.objects.filter(is_special_offer=True)
 
     context = {
-        'new_arrivals': new_arrivals,
-        'deals': deals,
-        'clearance': clearance,
         'secondhand': secondhand,
         'product_offers': product_offers,
         'service_offers': service_offers,
     }
 
     return render(request, 'products-services/special-offers.html', context)
+
+def add_product(request):
+    """ Add a product to the store """
+    form = ProductForm()
+    template = 'products-services/add-product.html'
+    context = {
+        'form': form,
+    }
+
+    return render(request, template, context)

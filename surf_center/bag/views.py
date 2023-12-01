@@ -5,6 +5,8 @@ from django.contrib import messages
 from .contexts import bag_contents
 import datetime
 
+
+
 # Create your views here.
 
 def view_bag(request):
