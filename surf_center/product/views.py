@@ -203,7 +203,7 @@ def special_offers(request):
     return render(request, 'products-services/special-offers.html', context)
 
 def add_product(request):
-    """ Add a product to the store """
+    """ Add a product or service at the shop """
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
@@ -220,3 +220,39 @@ def add_product(request):
     }
 
     return render(request, template, context)
+
+def edit_item(request, item_id):
+    """Edit a product or service at the shop"""
+
+    try:
+        item = get_object_or_404(Product, pk=item_id)
+        Form = ProductForm
+        item_type = 'product'
+    except:
+        item = get_object_or_404(Service, pk=item_id)
+        Form = ServiceForm
+        item_type = 'service'
+
+    if request.method == 'POST':
+        form = Form(request.POST, request.FILES, instance=item)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully updated {item_type}!')
+            return redirect(reverse('all_products', args=[item.id]))
+        else:
+            messages.error(request, 'Failed to update {item_type} Please ensure the form is valid.')
+    else:
+        form = Form(instance=item)
+        messages.info(request, f'You are editing {item.name}' if item_type == 'product' else item.type)
+
+    template = 'products-services/edit-item.html'
+    context = {
+        'form': form,
+        'item': item,
+        'item_type': item_type
+    }
+
+    return render(request, template, context)
+            
+
+  
