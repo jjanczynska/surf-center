@@ -49,7 +49,7 @@
                                     <td>{{ order.date }}</td>
                                     <td>
                                         <ul class="list-unstyled">
-                                            {% for item in order.productlineitems.all %}
+                                            {% for item in order.productslineitems.all %}
                                                 <li class="small">
                                                     {% if item.product.has_sizes %}
                                                         Size {{ item.product.size }}
