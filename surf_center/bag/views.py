@@ -24,22 +24,14 @@ def add_to_bag(request, item_id, item_type):
 
     if item_type == 'product':
         if size:
-            print("it has size")
-            print(item_id)
-            print(bag["products"])
             if item_id in bag['products']:
-                print("item id in the products")
                 if isinstance(bag['products'][item_id], dict):
-                    print("is an instant")
                     bag['products'][item_id]['items_by_size'][size] = bag['products'][item_id]['items_by_size'].get(size, 0) + quantity
                 else:
-                    print("not an instant")
                     bag['products'][item_id] = {'items_by_size': {size: quantity}}
             else:
-                print("line 35")
                 bag['products'][item_id] = {'items_by_size': {size: quantity}}
         else:
-            print("line 38S")
             bag['products'][item_id] = bag['products'].get(item_id, 0) + quantity
             messages.success(request, f'Added {product.name} to your bag')
   
@@ -88,8 +80,6 @@ def update_bag(request, item_id, item_type):
 
     bag = request.session.get('bag', {'products': {}, 'lessons': {}})
 
-    print("Current bag:", bag)
-
     size = None
     if 'product_size' in request.POST:
         size = request.POST['product_size']
@@ -126,16 +116,20 @@ def update_bag(request, item_id, item_type):
              return redirect(reverse('view_bag'))
 
         lesson_key = f"{selected_date}_{selected_time_slot}"
+        print(f"Lesson key for update: {lesson_key}")
+        print(f"Lesson keys available in bag: {list(bag['lessons'].keys())}")
 
         if lesson_key in bag['lessons']:
             bag['lessons'][lesson_key]['quantity'] = quantity
             bag['lessons'][lesson_key]['details']['total_price'] = quantity * lesson.price_per_participant
-            messages.success(request, f'Updated {item.type} on {selected_date} at {selected_time_slot} to {quantity} participants')
+            messages.success(request, f'Updated {item_type} on {selected_date} at {selected_time_slot} to {quantity} participants')
         else:
-            messages.error(request, "Lesson time slot not found in your bag")
-            print("Available keys in 'lessons':", list(bag['lessons'].keys()))    
+            messages.error(request, "Lesson time slot not found in your bag")   
+            print(f"Lesson keys available in bag: {list(bag['lessons'].keys())}")
         
+    print("Bag after update:", bag)    
     request.session['bag'] = bag
+    print(f"Bag after update: {bag}")
     return redirect(reverse('view_bag'))
 
 def remove_from_bag(request, item_id):
@@ -144,6 +138,10 @@ def remove_from_bag(request, item_id):
     try:
         bag = request.session.get('bag', {'products': {}, 'lessons': {}})
         item_type = request.POST.get('item_type')
+
+        print(f"Attempting to remove {item_type} with ID {item_id} from bag")
+        print(f"POST Data: {request.POST}")
+
 
         if item_type == 'product':
             size = request.POST.get('product_size', None)
@@ -164,11 +162,25 @@ def remove_from_bag(request, item_id):
             selected_time_slot = request.POST.get('time_slot', None)
             lesson_key = f"{selected_date}_{selected_time_slot}"
             del bag['lessons'][lesson_key]
-            messages.success(request, f'Removed {lesson.name} lesson on {selected_date} at {selected_time_slot} from your bag')
+            messages.success(request, f'Removed {lesson.get_type_display} lesson on {selected_date} at {selected_time_slot} from your bag')
+
+            if not selected_date or not selected_time_slot:
+                messages.error(request, "Invalid lesson date or time slot.")
+                return HttpResponse("Invalid lesson date or time slot.", status=400)
+
+            lesson_key = f"{selected_date}_{selected_time_slot}"
+
+            if lesson_key in bag['lessons']:
+                del bag['lessons'][lesson_key]
+                messages.success(request, f'Removed {lesson.get_type_display} lesson on {selected_date} at {selected_time_slot} from your bag')
+            else:
+                messages.error(request, "Lesson time slot not found in your bag.")
+                return HttpResponse(status=404)
 
         request.session['bag'] = bag
         return HttpResponse(status=200)
 
     except Exception as e:
+        print(f"Error removing item from bag: {e}")
         return HttpResponse(status=500)
 

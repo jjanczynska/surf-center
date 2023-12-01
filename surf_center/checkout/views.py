@@ -113,8 +113,6 @@ def checkout(request):
             'stripe_public_key': stripe_public_key,
             'client_secret': intent.client_secret,
         }
-            
-        print("context" + context)
         
         return render(request, 'checkout/checkout.html', context)
 

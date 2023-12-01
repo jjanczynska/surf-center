@@ -48,14 +48,6 @@
                                         {% csrf_token %}
                                         <div class="form-group">
                                             <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <button class="decrement-qty btn btn-sm btn-black rounded-0" 
-                                                        data-item_id="{{ item.id }}" id="decrement-qty_{{ item.id }}">
-                                                        <span>
-                                                            <i class="fas fa-minus fa-sm"></i>
-                                                        </span>
-                                                    </button>
-                                                </div>
                                                 <input class="form-control form-control-sm qty_input" type="number"
                                                     name="quantity" value="{{ item.quantity }}" min="1" max="20"
                                                     data-item_id="{{ item.id }}"
@@ -98,6 +90,8 @@
                                 <td class="py-3 w-25">
                                     <form class="form update-form" method="POST" action="{% url 'update_bag' item.id item.type %}">
                                         {% csrf_token %}
+                                        <input type="hidden" name="date" value="{{ item.date }}">
+                                        <input type="hidden" name="time_slot" value="{{ item.time_slot }}">
                                         <div class="form-group">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
@@ -179,18 +173,23 @@
 <script type="text/javascript">
     // Update quantity on click
     $('.update-link').click(function(e) {
-        var form = $(this).prev('.update-form');
+        e.preventDefault();
+        var form = $(this).closest('tr').find('form.update-form');
         form.submit();
     })
 
     // Remove item and reload on click
     $('.remove-item').click(function(e) {
+        e.preventDefault();
         var csrfToken = "{{ csrf_token }}";
         var itemId = $(this).attr('id').split('remove_')[1];
         var item_type = $(this).data('item-type');
         var size = $(this).data('product_size') || '';
         var date = $(this).data('date') || '';
         var time_slot = $(this).data('time-slot') || '';
+
+        console.log("Removing item:", itemId, item_type, date, time_slot);
+        
         var url = `/bag/remove/${itemId}/`;
         var data = {
             'csrfmiddlewaretoken': csrfToken, 
