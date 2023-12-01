@@ -28,7 +28,7 @@
                             <th scope="col">Subtotal</th>
                         </tr>
                     </thead>
-
+                    {{ bag }}
                     {% for item in bag_items %}
                         {% if item.type == 'product' %}
                             <tr>
@@ -37,7 +37,7 @@
                                 </td>
                                 <td class="py-3">
                                     <p class="my-0"><strong>{{ item.item.name }}</strong></p>
-                                    <p class="my-0"><strong>Size: </strong>{% if item.product.has_sizes %}{{ item.size }}{% else %}N/A{% endif %}</p>
+                                    <p class="my-0"><strong>Size: </strong>{% if item.item.has_sizes|upper %}{{ item.size }}{% else %}N/A{% endif %}</p>
                                     <p class="my-0 small text-muted">SKU: {{ item.item.sku|upper }}</p>
                                 </td>
                                 <td class="py-3">
@@ -75,7 +75,7 @@
                                         </div>
                                     </form>
                                     <a class="update-link text-info"><small>Update</small></a>
-                                    <a class="remove-item text-danger float-right" id="remove_{{ item.id }}" data-product-size="{{ item.size }}"><small>Remove</small></a>
+                                    <a class="remove-item text-danger float-right" id="remove_{{ item.id }}" data-product-size="{{ item.size|upper }}"><small>Remove</small></a>
                                 </td>
                               
                                 <td class="py-3">
@@ -189,7 +189,7 @@
         var itemId = $(this).attr('id').split('remove_')[1];
         var size = $(this).data('product_size') || '';
         var url = `/bag/remove/${itemId}/`;
-        var data = {'csrfmiddlewaretoken': csrfToken, 'product_size': size};
+        var data = {'csrfmiddlewaretoken': csrfToken, 'product_size': size, 'tiem_id': itemId};
 
         $.post(url, data)
          .done(function() {

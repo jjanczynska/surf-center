@@ -112,7 +112,7 @@ def checkout(request):
             'client_secret': intent.client_secret,
         }
             
-    
+        print("context" + context)
         
         return render(request, 'checkout/checkout.html', context)
 

@@ -2,14 +2,16 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.http import HttpResponse
 from product.models import Product, Service, LessonSchedule
 from django.contrib import messages
+from .contexts import bag_contents
 import datetime
 
 # Create your views here.
 
 def view_bag(request):
     """ A view that renders the bag contents page """
-
-    return render(request, 'bag/bag.html')
+    context = bag_contents(request)
+    bag = request.session.get('bag', {'products': {}, 'lessons': {}})
+    return render(request, 'bag/bag.html', context)
 
 
 def add_to_bag(request, item_id, item_type):
@@ -20,21 +22,24 @@ def add_to_bag(request, item_id, item_type):
     quantity = int(request.POST.get('quantity', 1))
     product = get_object_or_404(Product, pk=item_id)
 
-    if product.has_sizes:
-        size = request.POST.get('product_size')  
-    else:
-        size = None 
-
     if item_type == 'product':
         if size:
+            print("it has size")
+            print(item_id)
+            print(bag["products"])
             if item_id in bag['products']:
+                print("item id in the products")
                 if isinstance(bag['products'][item_id], dict):
+                    print("is an instant")
                     bag['products'][item_id]['items_by_size'][size] = bag['products'][item_id]['items_by_size'].get(size, 0) + quantity
                 else:
+                    print("not an instant")
                     bag['products'][item_id] = {'items_by_size': {size: quantity}}
             else:
+                print("line 35")
                 bag['products'][item_id] = {'items_by_size': {size: quantity}}
         else:
+            print("line 38S")
             bag['products'][item_id] = bag['products'].get(item_id, 0) + quantity
             messages.success(request, f'Added {product.name} to your bag')
   
@@ -74,6 +79,7 @@ def add_to_bag(request, item_id, item_type):
 
 
     request.session['bag'] = bag
+    print(request.session['bag'])
     return redirect(redirect_url)
 
 
