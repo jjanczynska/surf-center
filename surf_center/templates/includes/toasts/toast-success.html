@@ -10,4 +10,25 @@
     <div class="toast-body bg-white">
         {{ message }}        
     </div>
+    <div class="bag-notification-wrapper">
+        {% for item in bag_items %}
+        <div class="row">
+            <div class="col-3 my-1">
+                {% if item.item_type == 'product' %}
+                    {% if item.product.image %}
+                        <img class="w-100" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                    {% else %}
+                        <img class="w-100" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.product.name }}">
+                    {% endif %}
+                {% elif item.item_type == 'service' %}
+                    {% if item.service.image %}
+                        <img class="w-100" src="{{ item.service.image.url }}" alt="{{ item.service.get_type_display }}">
+                    {% else %}
+                        <img class="w-100" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.service.get_type_display }}">
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endfor %}
+        </div>
+    </div>
 </div>

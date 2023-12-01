@@ -204,7 +204,16 @@ def special_offers(request):
 
 def add_product(request):
     """ Add a product to the store """
-    form = ProductForm()
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully added product!')
+            return redirect(reverse('add_product'))
+        messages.error(request, 'Update failed. Please ensure the form is valid.')
+    else:
+        form = ProductForm()
+
     template = 'products-services/add-product.html'
     context = {
         'form': form,
