@@ -34,6 +34,12 @@
                     {% else %}
                     <p class="small text-muted">No Rating</p>
                     {% endif %}
+                    {% if request.user.is_superuser %}
+                        <small class="ml-3">
+                            <a href="{% url 'edit_item' product.id %}">Edit</a> | 
+                            <a class="text-danger" href="{% url 'delete_item' product.id %}">Delete</a>
+                        </small>
+                    {% endif %}
                     <p>{{ product.description }}</p>
                     <form class="form" action="{% url 'add_to_bag' product.id 'product' %}" method="POST">
                         {% csrf_token %}

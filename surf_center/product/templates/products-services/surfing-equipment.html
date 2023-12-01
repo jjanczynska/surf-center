@@ -59,6 +59,12 @@
                                     {% else %}
                                         <p class="small mt-1 mb-0 text-muted">No Category</p>
                                     {% endif %}
+                                    {% if request.user.is_superuser %}
+                                    <small class="ml-3">
+                                        <a href="{% url 'edit_item' product.id %}">Edit</a> | 
+                                        <a class="text-danger" href="{% url 'delete_item' product.id %}">Delete</a>
+                                    </small>
+                                    {% endif %}
                                 </div>
                                 <div class="card-footer bg-white pt-0 border-0 text-left">
                                     <div class="row">

@@ -26,6 +26,12 @@
                                         <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ service.get_type_display }}">
                                     </a>    
                                     {% endif %}
+                                    {% if request.user.is_superuser %}
+                                        <small class="ml-3">
+                                            <a href="{% url 'edit_item' service.id %}">Edit</a> | 
+                                            <a class="text-danger" href="{% url 'delete_item' service.id %}">Delete</a>
+                                        </small>
+                                    {% endif %}
                                     <div class="card-body">
                                         <h5 class="card-title">{{ service.get_type_display }}</h5>
                                         <p> Maximum Participants: {{ service.get_max_participants }}</p> 

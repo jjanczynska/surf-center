@@ -253,6 +253,19 @@ def edit_item(request, item_id):
     }
 
     return render(request, template, context)
+
+def delete_item(request, item_id):
+    """ Delete a product or a service from the shop """
+    try:
+        item = get_object_or_404(Product, pk=item_id)
+        item_type = 'product'
+    except Product.DoesNotExist:
+        item = get_object_or_404(Service, pk=item_id)
+        item_type = 'service'
+
+    item.delete()
+    messages.success(request, f'{item_type.capitalize()} deleted!')
+    return redirect(reverse('all_products'))
             
 
   
