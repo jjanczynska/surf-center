@@ -87,6 +87,9 @@ def update_bag(request, item_id, item_type):
     """Update the quantity of the specified product"""
 
     bag = request.session.get('bag', {'products': {}, 'lessons': {}})
+
+    print("Current bag:", bag)
+
     size = None
     if 'product_size' in request.POST:
         size = request.POST['product_size']
@@ -117,22 +120,20 @@ def update_bag(request, item_id, item_type):
         selected_date = request.POST.get('date')
         selected_time_slot = request.POST.get('time_slot')
 
+        print("POST data - Quantity:", quantity, "Date:", selected_date, "Time Slot:", selected_time_slot)
+
+        if not selected_date or not selected_time_slot:
+             return redirect(reverse('view_bag'))
+
         lesson_key = f"{selected_date}_{selected_time_slot}"
-        if lesson_key not in bag['lessons']:
+
+        if lesson_key in bag['lessons']:
             bag['lessons'][lesson_key]['quantity'] = quantity
             bag['lessons'][lesson_key]['details']['total_price'] = quantity * lesson.price_per_participant
             messages.success(request, f'Updated {item.type} on {selected_date} at {selected_time_slot} to {quantity} participants')
         else:
             messages.error(request, "Lesson time slot not found in your bag")
-            bag['lessons'][lesson_key] = {
-                'item_id': item_id,
-                'quantity': quantity,
-                'details': {
-                    'date': selected_date,
-                    'time_slot': selected_time_slot,
-                    'total_price': quantity * lesson.price_per_participant
-                }
-            }
+            print("Available keys in 'lessons':", list(bag['lessons'].keys()))    
         
     request.session['bag'] = bag
     return redirect(reverse('view_bag'))

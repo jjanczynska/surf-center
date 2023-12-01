@@ -49,14 +49,14 @@
                                     <td>{{ order.date }}</td>
                                     <td>
                                         <ul class="list-unstyled">
-                                            {% for item in order.lineitems.all %}
+                                            {% for item in order.productlineitems.all %}
                                                 <li class="small">
                                                     {% if item.product.has_sizes %}
                                                         Size {{ item.product.size }}
                                                     {% endif %}{{ item.product.name }} x{{ item.quantity }}
                                                 </li>
                                             {% endfor %}
-                                            {% for lesson in order.lessonitems.all %}
+                                            {% for lesson in order.lessonlineitems.all %}
                                                 <li class="small">
                                                     {{ lesson.service.type }} lesson on {{ lesson.date }} at {{ lesson.time_slot }} x{{ lesson.quantity }}
                                                 </li>
