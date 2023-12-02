@@ -8,11 +8,11 @@
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="image-container">
                     {% if lesson.image %}
-                    <a href="{{ service.image.url }}" target="_blank">
-                        <img class="card-img-top img-fluid" src="{{ service.image.url }}" alt="{{ service.get_type_display }}">
+                    <a href="{{ lesson.image.url }}" target="_blank">
+                        <img class="card-img-top img-fluid" src="{{ lesson.image.url }}" alt="{{ lesson.get_type_display }}">
                     </a>
                     {% else %}
-                    <a href="{{ service.image.url }}" target="_blank">
+                    <a href="{{ lesson.image.url }}" target="_blank">
                         <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ service.get_type_display }}">
                     </a>    
                     {% endif %}
