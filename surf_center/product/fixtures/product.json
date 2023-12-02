@@ -1,0 +1,184 @@
+[
+    {
+        "model": "product.product",
+        "fields": {
+            "sku": "SB201",
+            "name": "WaveMaster Classic",
+            "description": "A classic longboard, perfect for smooth rides on mellow waves. Length: 3 meters. Material- Fiberglass",
+            "has_sizes": false,
+            "price": "425.00",
+            "rating": "5.00",
+            "image": "modern-surfboard-isolated-yellow-background-water-sports-concept_1.jpg",
+            "is_special_offer": false
+        }
+    },
+    {
+        "model": "product.product",
+        "fields": {
+            "sku": "SB202",
+            "name": "Thruster Pro",
+            "description": "High-performance shortboard designed for quick maneuvers. Length: 6 feet. Material: Epoxy resin.",
+            "has_sizes": false,
+            "price": "465.00",
+            "rating": "4.90",
+            "image": "surboard2_pnCpoUw.jpg",
+            "is_special_offer": false
+        }
+    },
+    {
+        "model": "product.product",
+        "fields": {
+            "sku": "SB203",
+            "name": "Big Wave Gun",
+            "description": "Designed for experienced surfers tackling big waves. Length: 10 feet. Material: Carbon composite.",
+            "has_sizes": false,
+            "price": "525.00",
+            "rating": "5.00",
+            "image": "attractive-surfer-holding-surfboard_OutEVsj.jpg",
+            "is_special_offer": false
+        }
+    },
+    {
+        "model": "product.product",
+        "fields": {
+            "sku": "SB204",
+            "name": "SoftTop Funboard",
+            "description": "Ideal for beginners, offering stability and ease of use. Length: 2.5 meters. Soft-top for safety.",
+            "has_sizes": false,
+            "price": "245.00",
+            "rating": "5.00",
+            "image": "surfboard3_sHsGlGz.jpg",
+            "is_special_offer": false
+        }
+    },
+    {
+        "model": "product.product",
+        "fields": {
+            "sku": "SH501",
+            "name": "Retro Fish Classic - Preloved",
+            "description": "A gently used retro fish surfboard, perfect for smooth rides and stylish turns. Length: 2.5 meters. Material: Fiberglass. Condition: Minor scratches, well-maintained.",
+            "has_sizes": false,
+            "price": "169.00",
+            "rating": "3.00",
+            "image": "surfboard-sandy-beach_ZGrrEBJ.jpg",
+            "is_special_offer": false
+        }
+    },
+    {
+        "model": "product.product",
+        "fields": {
+            "sku": "SH502",
+            "name": "Vintage Longboard - Collector's Item",
+            "description": "Classic longboard from the 1980s. Ideal for collectors or casual surfing. Length: 3 meters. Material: Wood and fiberglass blend. Condition: Good, with vintage wear.",
+            "has_sizes": false,
+            "price": "65.00",
+            "rating": "3.00",
+            "image": "surf_board1.jpg",
+            "is_special_offer": false
+        }
+    },
+    {
+        "model": "product.product",
+        "fields": {
+            "sku": "SH503",
+            "name": "AquaFlex Explorer - Used",
+            "description": "High-performance wetsuit, suitable for all water sports. Thickness: 4mm. Material: Neoprene. Condition: Good, with slight signs of wear.",
+            "has_sizes": false,
+            "price": "55.00",
+            "rating": "3.00",
+            "image": "malik-skydsgaard-qhktkHTg6pA-unsplash_YfhiwAW.jpg",
+            "is_special_offer": false
+        }
+    },
+    {
+        "model": "product.product",
+        "fields": {
+            "sku": "WB301",
+            "name": "Neoprene Aqua Boots",
+            "description": "Durable and comfortable, perfect for rocky shores. Material: Neoprene with rubber sole. Size range: 5-12.",
+            "has_sizes": true,
+            "price": "35.00",
+            "rating": "4.00",
+            "image": "water_boots.jpg",
+            "is_special_offer": false
+        }
+    },
+    {
+        "model": "product.product",
+        "fields": {
+            "sku": "WB302",
+            "name": "Thermal Water Boots",
+            "description": "Keeps feet warm in cold water conditions. Material: Insulated rubber. Size range: 6-13.",
+            "has_sizes": true,
+            "price": "55.00",
+            "rating": "5.00",
+            "image": "noimage_OtwWvF6.png",
+            "is_special_offer": false
+        }
+    },
+    {
+        "model": "product.product",
+        "fields": {
+            "sku": "WP401",
+            "name": "Quick-Dry Poncho",
+            "description": "Easy to wear, provides warmth and privacy for changing. Material: Microfiber. One size fits all.",
+            "has_sizes": false,
+            "price": "45.00",
+            "rating": "5.00",
+            "image": "water_poncho.jpg",
+            "is_special_offer": false
+        }
+    },
+    {
+        "model": "product.product",
+        "fields": {
+            "sku": "WP402",
+            "name": "Hooded Beach Poncho",
+            "description": "Versatile and stylish, ideal for beach activities. Material: Cotton blend.",
+            "has_sizes": false,
+            "price": "35.00",
+            "rating": "5.00",
+            "image": "noimage_Bcp1AQG.png",
+            "is_special_offer": false
+        }
+    },
+    {
+        "model": "product.product",
+        "fields": {
+            "sku": "WS101",
+            "name": "AquaFlex Pro Wetsuit",
+            "description": "High-performance, full-body wetsuit. Perfect for cold waters, offers superior flexibility and durability. Thickness: 5mm.",
+            "has_sizes": true,
+            "price": "159.00",
+            "rating": "5.00",
+            "image": "malik-skydsgaard-kUqD6pkMYfI-unsplash_UV809lN.jpg",
+            "is_special_offer": false
+        }
+    },
+    {
+        "model": "product.product",
+        "fields": {
+            "sku": "WS102",
+            "name": "Ocean Glide Wetsuit",
+            "description": "Ideal for beginners, this wetsuit provides comfort and warmth. Made with eco-friendly neoprene. Thickness: 3mm.",
+            "has_sizes": true,
+            "price": "99.00",
+            "rating": "5.00",
+            "image": "wetsuit_LOJXTSF.jpg",
+            "is_special_offer": false
+        }
+    },
+    {
+        "model": "product.product",
+        "fields": {
+            "sku": "WS103",
+            "name": "Streamline Short Sport Wetsuit",
+            "description": "Lightweight and versatile, perfect for various water sports. Quick-dry technology and UV protection. Thickness: 2mm.",
+            "has_sizes": true,
+            "price": "55.00",
+            "rating": "4.80",
+            "image": "happy-surfer-walking-with-surfboard_Nusk22G.jpg",
+            "is_special_offer": false
+        }
+    }
+]

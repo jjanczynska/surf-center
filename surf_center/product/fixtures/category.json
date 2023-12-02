@@ -1,0 +1,58 @@
+[
+    {
+        "model": "product.category",
+        "pk": 1,
+        "fields": {
+            "name": "private_lesson",
+            "display_name": "Private Lesson"
+        }
+    },
+    {
+        "model": "product.category",
+        "pk": 2,
+        "fields": {
+            "name": "group_lesson",
+            "display_name": "Group Lesson"
+        }
+    },
+    {
+        "model": "product.category",
+        "pk": 3,
+        "fields": {
+            "name": "water_ponchos",
+            "display_name": "Water Ponchos"
+        }
+    },
+    {
+        "model": "product.category",
+        "pk": 4,
+        "fields": {
+            "name": "water_boots",
+            "display_name": "Water Boots"
+        }
+    },
+    {
+        "model": "product.category",
+        "pk": 5,
+        "fields": {
+            "name": "surf_boards",
+            "display_name": "Surf Boards"
+        }
+    },
+    {
+        "model": "product.category",
+        "pk": 6,
+        "fields": {
+            "name": "secondhand",
+            "display_name": "Secondhand"
+        }
+    },
+    {
+        "model": "product.category",
+        "pk": 7,
+        "fields": {
+            "name": "wetsuits",
+            "display_name": "Wetsuits"
+        }
+    }
+]

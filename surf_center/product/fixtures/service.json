@@ -1,0 +1,24 @@
+[
+    {
+        "model": "product.service",
+        "fields": {
+            "type": "Private",
+            "price": "30.00",
+            "image": "busy-woman-with-pony-tail_10KQYXm.jpg",
+            "max_participants": 1,
+            "description": "\"Solo Wave Rider!\" Tailor your surf experience with our Private Surfing Lessons. Get one-on-one attention from our seasoned instructors, customized to your skill level. Whether you're starting out or enhancing your technique, these sessions offer a focused approach to boost your surfing confidence. Dive into a personal wave journey today!",
+            "is_special_offer": false
+        }
+    },
+    {
+        "model": "product.service",
+        "fields": {
+            "type": "Group",
+            "price": "15.00",
+            "image": "pexels-kampus-production-6299933_ZbynBbX.jpg",
+            "max_participants": 5,
+            "description": "\"Group Surf's Up!\" Join our Group Surfing Lessons and experience the thrill of the waves in a small, friendly setting! Limited to 5 surfers, you'll get personalized guidance from expert instructors, perfect for all levels. Connect with fellow wave riders and make a splash together. Book now for a fun-filled surfing adventure!",
+            "is_special_offer": false
+        }
+    }
+]
