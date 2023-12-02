@@ -50,19 +50,9 @@ class Service(models.Model):
     description = models.TextField()
     is_special_offer = models.BooleanField(default=False, verbose_name="Special Offer")
 
-    def get_max_participants(self):
-        return 1 if self.type == self.PRIVATE else 5
 
     def save(self, *args, **kwargs):
         super(Service, self).save(*args, **kwargs)
-    
-    @property
-    def price_per_participant(self):
-        return 30.00 if self.type == self.PRIVATE else 15.00
-
-    @property
-    def max_participants(self):
-        return 1 if self.type == self.PRIVATE else 5
 
 class LessonSchedule(models.Model):
     TIME_SLOTS = [
