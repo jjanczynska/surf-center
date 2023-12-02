@@ -235,6 +235,10 @@ def edit_item(request, item_id):
         messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
 
+    item = None
+    Form = None
+    item_type = None
+
 
     try:
         item = get_object_or_404(Product, pk=item_id)
@@ -249,10 +253,10 @@ def edit_item(request, item_id):
         form = Form(request.POST, request.FILES, instance=item)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Successfully updated {item_type}!')
-            return redirect(reverse('all_products', args=[item.id]))
+            messages.success(request, f'Successfully updated {item_type}!')
+            return redirect(reverse('all_products'))
         else:
-            messages.error(request, 'Failed to update {item_type} Please ensure the form is valid.')
+            messages.error(request, f'Failed to update {item_type} Please ensure the form is valid.')
     else:
         form = Form(instance=item)
         messages.info(request, f'You are editing {item.name}' if item_type == 'product' else item.type)

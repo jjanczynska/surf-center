@@ -44,9 +44,18 @@ def add_to_bag(request, item_id, item_type):
         selected_date = request.POST.get('date')
         selected_time_slot = request.POST.get('time_slot')
 
-        if not selected_date or not selected_time_slot:
-            messages.error(request, "You must include a date and time for lessons.")
+        if lesson.type == Service.PRIVATE and quantity != 1:
+            messages.error(request, f'Only one participant is allowed for private lessons.')
             return redirect(redirect_url)
+
+        if lesson.type == Service.GROUP and not  (2 <= quantity <= 5):
+            message.error(request, f'Group lessons must have between 2 and 5 participants')
+            return redirect(redirect_url)
+
+        if not selected_date or not selected_time_slot:
+            messages.error(request, f'You must include a date and time for lessons.')
+            return redirect(redirect_url)
+            
 
         booked_count = LessonSchedule.objects.filter(service=lesson, date=selected_date, time_slot=selected_time_slot).count()
         if booked_count >= lesson.max_participants:
@@ -79,8 +88,10 @@ def add_to_bag(request, item_id, item_type):
 
 def update_bag(request, item_id, item_type):
     """Update the quantity of the specified product"""
-
+    redirect_url = request.POST.get('redirect_url', reverse('view_bag'))
+    
     bag = request.session.get('bag', {'products': {}, 'lessons': {}})
+
 
     size = None
     if 'product_size' in request.POST:
@@ -112,26 +123,34 @@ def update_bag(request, item_id, item_type):
         selected_date = request.POST.get('date')
         selected_time_slot = request.POST.get('time_slot')
 
-        print("POST data - Quantity:", quantity, "Date:", selected_date, "Time Slot:", selected_time_slot)
-
         if not selected_date or not selected_time_slot:
              return redirect(reverse('view_bag'))
 
+        if lesson.type == Service.PRIVATE and quantity != 1:
+            messages.error(request, 'Only one participant is allowed for private lessons.')
+            return redirect(redirect_url)
+
+        if lesson.type == Service.GROUP and not (2 <= quantity <= 5):
+            messages.error(request, 'Group lessons must have between 2 and 5 participants')
+            return redirect(redirect_url)
+
         lesson_key = f"{selected_date}_{selected_time_slot}"
-        print(f"Lesson key for update: {lesson_key}")
-        print(f"Lesson keys available in bag: {list(bag['lessons'].keys())}")
 
         if lesson_key in bag['lessons']:
             bag['lessons'][lesson_key]['quantity'] = quantity
             bag['lessons'][lesson_key]['details']['total_price'] = quantity * lesson.price_per_participant
             messages.success(request, f'Updated {item_type} on {selected_date} at {selected_time_slot} to {quantity} participants')
-        else:
-            messages.error(request, "Lesson time slot not found in your bag")   
-            print(f"Lesson keys available in bag: {list(bag['lessons'].keys())}")
+        else: 
+            del bag['lessons'][lesson_key]
+            messages.success(request, f'Removed {item_type} on {selected_date} at {selected_time_slot} from your bag')
+
+    else:
+         messages.error(request, f'Lesson time slot not found in your bag')   
+            
         
-    print("Bag after update:", bag)    
+  
     request.session['bag'] = bag
-    print(f"Bag after update: {bag}")
+    request.session.modified = True
     return redirect(reverse('view_bag'))
 
 def remove_from_bag(request, item_id):

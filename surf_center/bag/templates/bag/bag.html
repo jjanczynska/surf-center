@@ -82,9 +82,9 @@
                             <tr>
                                 <td class="p-3 w-25">
                                     {% if item.service.image %}
-                                    <img class="img-fluid rounded" src="{{ item.item.image.url }}" alt="{{ item.service.get_type_display }} - {{ item.service.description }}" >
+                                    <img class="img-fluid rounded" src="{{ item.item.image.url }}" alt="{{ item.lesson.get_type_display }} - {{ item.service.description }}" >
                                     {% else %}
-                                    <img class="img-fluid rounded" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.service.get_type_display }} - {{ item.service.description }}">
+                                    <img class="img-fluid rounded" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.lesson.get_type_display }} - {{ item.service.description }}">
                                     {% endif %}
                                 </td>
                                 <td class="py-3">
@@ -194,7 +194,7 @@
         var item_type = $(this).data('item-type');
         var size = $(this).data('product_size') || '';
         var date = $(this).data('date') || '';
-        var time_slot = $(this).data('time-slot') || '';
+        var time_slot = $(this).data('times_slot') || '';
 
         console.log("Removing item:", itemId, item_type, date, time_slot);
         
