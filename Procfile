@@ -1,1 +1,1 @@
-web: gunicorn surf-center.wsgi
+web: gunicorn surf_center.wsgi
