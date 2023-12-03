@@ -6,6 +6,7 @@ html {
 
 body {
     font-family: 'Lato', sans-serif;
+    font-size: 16px;
     color: #333;
     background-color: #f0f8ff;
     margin: 0;
@@ -83,7 +84,6 @@ body {
     margin-top: 0.5em;
 }
 
-
 /* Search Form */
 
 .surf-search-form input[type="text"] {
@@ -130,9 +130,14 @@ footer {
     color: #ffffff;
 }
 
+.surf-footer-container {
+    padding: 20px 0;
+    text-align: center;
+}
+
 .surf-footer-container .social-icon {
-    font-size: 30px;
-    margin: 0 50px;
+    font-size: 24px;
+    margin: 0 10px;
     color: #ff7043;
     transition: color 0.3s ease, transform 0.3 ease;
     vertical-align: middle;
@@ -141,6 +146,11 @@ footer {
 .surf-footer-container .social-icon:hover {
     transform: scale(1.5);
 }
+
+.footer-social-icons {
+    padding: 10px 0;
+}
+
 
 
 .btn {
@@ -333,4 +343,60 @@ input[type='text']:focus, input[type='email']:focus, textarea:focus {
     background-color: #dc3545;
     border-color: #dc3545;
     border-radius: 0;
+}
+
+
+/* Media querries */
+
+@media (max-width: 992px) {
+    .container-row1 {
+        padding: 10px 0;
+    }
+}
+
+  
+@media (max-width: 768px) {
+    .surf-navbar .nav-item .dropdown-menu {
+        background-color: #f0f8ff;
+        border: none;
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
+        margin-top: 0.5em;
+        position: absolute;
+        }
+    
+        .surf-navbar .nav-item .dropdown-menu .dropdown-item {
+            color: #205072;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .surf-navbar .nav-item .dropdown-menu .dropdown-item:hover {
+            background-color: #ff7043;
+            color: #ffffff;
+        }
+        
+        .navbar-toggler {
+            display: inline-block;
+        }
+        
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+
+
+
+    }
+
+@media (max-width: 576px) {
+    body {
+        font-size: 14px;
+    }
+
+    .navbar-collapse {
+        display: none;
+    }
+
+    .social-icon {
+        margin: 0 3px;
+        font-size: 18px; 
+    }
 }
