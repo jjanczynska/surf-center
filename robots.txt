@@ -1,0 +1,9 @@
+# Allow all bots to access the main website
+User-agent: *
+Allow: /
+
+# Disallow bots from accessing sensitive directories
+Disallow: /admin/
+Disallow: /accounts/
+Disallow: /cart/
+Disallow: /checkout/
