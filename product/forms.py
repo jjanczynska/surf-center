@@ -1,6 +1,6 @@
 from django import forms
 from .widgets import CustomClearableFileInput
-from .models import Product, Service, Category
+from .models import Product, Service, Category, Subscriber
 
 class ProductForm(forms.ModelForm):
 
@@ -18,4 +18,13 @@ class ProductForm(forms.ModelForm):
         self.fields['category'].choices = friendly_names
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'border-black rounded-0'
+
+class NewsletterForm(forms.ModelForm):
+    class Meta:
+        model = Subscriber
+        fields = ['email']
+
+    def __init__(self, *args, **kwargs):
+        super(NewsletterForm, self).__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs.update({'placeholder': 'Your Email*'})
 

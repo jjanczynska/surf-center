@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product, Service, LessonSchedule
+from .models import Category, Product, Service, LessonSchedule, Subscriber
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = (
@@ -53,7 +53,10 @@ class CategoryAdmin(admin.ModelAdmin):
         'display_name',
         'name',
     )
-
+    
+@admin.register(Subscriber)
+class SubscriberAdmin(admin.ModelAdmin):
+    list_display = ('email', 'date_subscribed')
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Product, ProductAdmin)

@@ -23,13 +23,14 @@
         <div class="subscribe">
             <h4>Subscribe To Our Newsletter</h4>
             <p>Join our subscribers list to get the latest news, updates, and special offers directly in your inbox.</p>
-            <form action="/subscribe" method="post">
-                <input type="email" name="email" class="form-control" placeholder="Your Email*" required>
-                <button type="submit" class="btn">Subscribe To Our Newsletter</button>
-            </form>
+            <form method="post" action="{% url 'subscribe_newsletter' %}" id="newsletter-form">
+              {% csrf_token %}
+              <input type="email" name="email" class="form-control" placeholder="Your Email*" required>
+              <button type="submit" class="btn">Subscribe</button>
+          </form>
         </div>
     </div>
-</section>
+  </section>
 
 <!-- Footer Section -->
 <footer>

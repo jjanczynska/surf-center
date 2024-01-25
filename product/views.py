@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
-from .models import Category, Product, Service, LessonSchedule
+from .models import Category, Product, Service, LessonSchedule, Subscriber
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from datetime import date
@@ -7,7 +7,8 @@ from django.db.models.functions import Lower, Coalesce
 from django.db.models import Q
 from django.db.models import Value, IntegerField
 
-from .forms import ProductForm
+
+from .forms import ProductForm, NewsletterForm
 
 
 def all_products(request):
@@ -288,6 +289,22 @@ def delete_item(request, item_id):
     item.delete()
     messages.success(request, f'{item_type.capitalize()} deleted!')
     return redirect(reverse('all_products'))
+
+
+def subscribe_newsletter(request):
+    if request.method == 'POST':
+        form = NewsletterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Thank you for subscribing to our newsletter!')
+            return redirect('all_products')  
+        else:
+            for field, error in form.errors.items():
+                messages.error(request, f"{field}: {error}")
+            return redirect('all_products')  
+    else:
+        messages.error(request, 'Invalid request method.')
+        return redirect('all_products')  
             
 
   
