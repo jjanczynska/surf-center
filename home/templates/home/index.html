@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block content %}
-
+<!-- Main body Section -->
 <section class="hero-section">
     <div class="container h-100">
       <div class="row h-100 align-items-center">
@@ -17,7 +17,21 @@
     </div>
   </section>
 
+  <!-- Newsletter Section -->
+  <section class="newsletter my-5">
+    <div class="container text-center">
+        <div class="subscribe">
+            <h4>Subscribe To Our Newsletter</h4>
+            <p>Join our subscribers list to get the latest news, updates, and special offers directly in your inbox.</p>
+            <form action="/subscribe" method="post">
+                <input type="email" name="email" class="form-control" placeholder="Your Email*" required>
+                <button type="submit" class="btn">Subscribe To Our Newsletter</button>
+            </form>
+        </div>
+    </div>
+</section>
 
+<!-- Footer Section -->
 <footer>
     <div class="surf-footer-container">
         <div class="row">
