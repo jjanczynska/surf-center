@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-12">
             <hr>
-            <h2 class="logo-font mb-4">Shopping Bag</h2>
+            <h2 class="logo-font mb-4" aria-label="Shopping Bag">Shopping Bag</h2>
             <hr>
         </div>
     </div>
@@ -34,7 +34,7 @@
                             <tr>
                                 <td class="p-3 w-25">
                                     {% if item.product.image %}
-                                    <img class="img-fluid rounded" src="{{ item.item.image.url }}">
+                                    <img class="img-fluid rounded" src="{{ item.item.image.url }}" alt="{{ item.item.name }} Image">
                                     {% else %}
                                     <img class="img-fluid rounded" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.product.name }}">
                                     {% endif %}
@@ -70,8 +70,8 @@
                                             </div>
                                         </div>
                                     </form>
-                                    <a class="update-link text-info"><small>Update</small></a>
-                                    <a class="remove-item text-danger float-right" id="remove_{{ item.id }}" data-item-type="product" data-product-size="{{ item.size|upper }}"><small>Remove</small></a>
+                                    <a class="update-link text-info" aria-label="Update Item Quantity"><small>Update</small></a>
+                                    <a class="remove-item text-danger float-right" id="remove_{{ item.id }}" data-item-type="product" data-product-size="{{ item.size|upper }}" aria-label="Remove Item"><small>Remove</small></a>
                                 </td>
                               
                                 <td class="py-3">
@@ -125,8 +125,8 @@
                                             </div>
                                         </div>
                                     </form>
-                                    <a class="update-link text-info"><small>Update</small></a>
-                                    <a class="remove-item text-danger float-right" id="remove_{{ item.id }}" data-item-type="lesson" data-date="{{ item.date }}" data-time-slot="{{ item.time_slot }}"><small>Remove</small></a>
+                                    <a class="update-link text-info" aria-label="Update Item Quantity"><small>Update</small></a>
+                                    <a class="remove-item text-danger float-right" id="remove_{{ item.id }}" data-item-type="lesson" data-date="{{ item.date }}" data-time-slot="{{ item.time_slot }}" aria-label="Remove Item"><small>Remove</small></a>
                                 </td>
                                 <td class="py-3">
                                     <p class="my-0">${{ item.subtotal }}</p>
@@ -136,9 +136,9 @@
                     {% endfor %}
                     <tr>
                         <td colspan="5" class="pt-5 text-right">
-                            <h6><strong>Bag Total: ${{ total|floatformat:2 }}</strong></h6>
-                            <h6>Delivery: ${{ delivery|floatformat:2 }}</h6>
-                            <h4 class="mt-4"><strong>Grand Total: ${{ grand_total|floatformat:2 }}</strong></h4>
+                            <h6><strong aria-label="Bag Total">Bag Total: ${{ total|floatformat:2 }}</strong></h6>
+                            <h6 aria-label="Delivery Cost">Delivery: ${{ delivery|floatformat:2 }}</h6>
+                            <h4 class="mt-4"><strong aria-label="Grand Total">Grand Total: ${{ grand_total|floatformat:2 }}</strong></h4>
                         </td>
                     </tr>
                     <tr>

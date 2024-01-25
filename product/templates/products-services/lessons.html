@@ -28,8 +28,8 @@
                                     {% endif %}
                                     {% if request.user.is_superuser %}
                                         <small class="ml-3">
-                                            <a href="{% url 'edit_item' service.id %}">Edit</a> | 
-                                            <a class="text-danger" href="{% url 'delete_item' service.id %}">Delete</a>
+                                            <a href="{% url 'edit_item' service.id %}" aria-label="Edit {{ service.get_type_display }}">Edit</a> | 
+                                            <a class="text-danger" href="{% url 'delete_item' service.id %}" aria-label="Delete {{ service.get_type_display }}">Delete</a>
                                         </small>
                                     {% endif %}
                                     <div class="card-body">

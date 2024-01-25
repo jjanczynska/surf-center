@@ -40,11 +40,11 @@
                             
                             <div class="card h-100 border-0">
                                 {% if product.image %}
-                                <a href="{% url 'surfing_equipment_detail' product.id %}">
+                                <a href="{% url 'surfing_equipment_detail' product.id %}" aria-label="View Product Details">
                                     <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
                                 </a>
                                 {% else %}
-                                <a href="{% url 'surfing_equipment_detail' product.id %}">
+                                <a href="{% url 'surfing_equipment_detail' product.id %}" aria-label="View Default Product Details">
                                     <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
                                 </a>    
                                 {% endif %}
@@ -93,7 +93,7 @@
         </div>
     </div>
     <div class="btt-button">
-        <a class="btt-link">
+        <a class="btt-link" aria-label="Back to Top">
             <i class="fas fa-arrow-up"></i>
         </a>
     </div>

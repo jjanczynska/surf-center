@@ -54,14 +54,14 @@
       <div class="container-row1">
         <div class="row align-items-center py-3">
           <div class="col-lg-6 col-md-12">
-            <a href="{% url 'home' %}" class="surf-navbar-brand">Surf Center & Shop</a>
+            <a href="{% url 'home' %}" class="surf-navbar-brand" aria-label="Go to Home Page">Surf Center & Shop</a>
           </div>
           <div class="col-lg-6 col-md-12">
             <div class="d-flex justify-content-end align-items-center">
               <!-- Search Form -->
               <form method="GET" action="{% url 'all_products' %}" class="search-form mr-3">
                 <div class="input-group">
-                  <input class="form-control border rounded-pill-left" type="text" name="q" placeholder="Search our site" aria-label="Search">
+                  <input class="form-control border rounded-pill-left" type="text" name="q" placeholder="Search our site" aria-label="Search our website" aria-label="Search Input">
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary  rounded-pill-right" type="submit">
                       <i class="fas fa-search"></i>
@@ -73,7 +73,7 @@
               <div class="surf-user-icons d-flex">
                 <!-- My Account dropdown -->
                 <div class="dropdown mr-3">
-                  <a href="#" class="nav-link dropdown-toggle"id="userAccountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <a href="#" class="nav-link dropdown-toggle"id="userAccountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="User Account Dropdown">
                     <i class="fas fa-user-circle"></i> My Account
                   </a>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userAccountDropdown">
@@ -91,7 +91,7 @@
                   </div>
                 </div> 
                 <!-- Shopping Basket--> 
-                <a href="{% url 'view_bag' %}" class="nav-link shopping-basket-link">
+                <a href="{% url 'view_bag' %}" class="nav-link shopping-basket-link" aria-label="View Shopping Basket">
                   <i class="fas fa-shopping-cart"></i>
                   {% if grand_total %}
                       <span class="badge badge-info">${{ grand_total|floatformat:2 }}</span>
@@ -112,7 +112,7 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
               <ul class="navbar-nav w-auto mx-auto">
                   <li class="nav-item dropdown">
-                      <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'all_products' %}" id="navbarDropdownAll" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'all_products' %}" id="navbarDropdownAll" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Browse All Products and Services">
                         All Products and Services
                       </a>
                       <div class="dropdown-menu border-0" aria-labelledby="navbarDropdownAll">
@@ -157,13 +157,13 @@
           {% for message in messages %}
             {% with message.level as level %}
                 {% if level == 40 %}
-                    {% include 'includes/toasts/toast-error.html' %}
+                    {% include 'includes/toasts/toast-error.html' aria-label="Error Message" %}
                 {% elif level == 30 %}
-                    {% include 'includes/toasts/toast-warning.html' %}
+                    {% include 'includes/toasts/toast-warning.html'aria-label="Warning Message" %}
                 {% elif level == 25 %}
-                    {% include 'includes/toasts/toast-success.html' %}
+                    {% include 'includes/toasts/toast-success.html' aria-label="Success Message" %}
                 {% else %}
-                    {% include 'includes/toasts/toast-info.html' %}
+                    {% include 'includes/toasts/toast-info.html' aria-label="Info Message" %}
                 {% endif %}
             {% endwith %}
           {% endfor %}  

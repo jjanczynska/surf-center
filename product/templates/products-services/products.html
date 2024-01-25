@@ -6,9 +6,9 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 text-center mt-3">
-                <h2 class="logo-font">Our Surfing Offerings</h2>
+                <h2 class="logo-font" aria-label="Our Surfing Offerings">Our Surfing Offerings</h2>
                 {% for category in all_categories %}
-                    <a class="category-badge text-decoration-none" href="{% url 'all_products' %}?category={{ category.name }}">
+                    <a class="category-badge text-decoration-none" href="{% url 'all_products' %}?category={{ category.name }}" aria-label="{{ category.display_name }} Category">
                         <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">{{ category.display_name }}</span>
                     </a>
                 {% endfor %}
@@ -25,11 +25,11 @@
                             <div class="card h-100 border-0">
                                 {% if product.image %} 
                                 <a href="{% url 'surfing_equipment_detail' product.id %}">
-                                    <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
+                                    <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}" alt="{{ product.name }} Image">
                                 </a>
                                 {% else %}
                                 <a href="{% url 'surfing_equipment_detail' product.id %}">
-                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}" alt="{{ product.name }} Image">
                                 </a>
                                 {% endif %}
                                 <div class="card-body pb-0">
@@ -49,9 +49,9 @@
                                 <div class="card-footer bg-white pt-0 border-0 text-left">
                                     <div class="row">
                                         <div class="col">
-                                            <p class="lead mb-0 text-left font-weight-bold">${{ product.price }}</p>
+                                            <p class="lead mb-0 text-left font-weight-bold" aria-label="Product Price">${{ product.price }}</p>
                                             {% if product.rating %}
-                                                <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</small>
+                                                <small class="text-muted" aria-label="Product Rating"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</small>
                                             {% else %}
                                                 <small class="text-muted">No Rating</small>
                                             {% endif %}
@@ -85,11 +85,11 @@
                                 </a>    
                                 {% endif %}
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ service.get_type_display }}</h5>
-                                    <p> Maximum Participants: {{ service.max_participants }}</p> 
+                                    <h5 class="card-title" aria-label="{{ service.get_type_display }} Lesson Title">{{ service.get_type_display }}</h5>
+                                    <p aria-label="Maximum Participants"> Maximum Participants: {{ service.max_participants }}</p> 
                                 </div>
                                 <div class="card-footer bg-white border-0">
-                                    <p class="lead mb-0">Price: ${{ service.price }} per person</p>
+                                    <p class="lead mb-0" aria-label="Lesson Price">Price: ${{ service.price }} per person</p>
                                 </div>
                             </div>
                         </div>

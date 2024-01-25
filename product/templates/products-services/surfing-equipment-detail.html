@@ -30,14 +30,14 @@
                     </p>
                     {% endif %}
                     {% if product.rating %}
-                    <p class="small text-muted"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</p>
+                    <p class="small text-muted" aria-label="Product Rating"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</p>
                     {% else %}
-                    <p class="small text-muted">No Rating</p>
+                    <p class="small text-muted" aria-label="No Rating">No Rating</p>
                     {% endif %}
                     {% if request.user.is_superuser %}
                         <small class="ml-3">
-                            <a href="{% url 'edit_item' product.id %}">Edit</a> | 
-                            <a class="text-danger" href="{% url 'delete_item' product.id %}">Delete</a>
+                            <a href="{% url 'edit_item' product.id %}" aria-label="Edit Product">Edit</a> | 
+                            <a class="text-danger" href="{% url 'delete_item' product.id %}" aria-label="DeleteProduct" >Delete</a>
                         </small>
                     {% endif %}
                     <p>{{ product.description }}</p>
