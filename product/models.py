@@ -69,3 +69,10 @@ class LessonSchedule(models.Model):
 
     def __str__(self):
         return f"Lesson on {self.date} at {self.get_time_slot_display()}"
+
+class Subscriber(models.Model):
+    email = models.EmailField(max_length=254, unique=True)
+    date_subscribed = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email
