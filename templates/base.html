@@ -1,10 +1,12 @@
+<!Doctype html>
 {% load static %}
-
-<!doctype html>
 <html lang="en">
+
   <head>
+    <title>Surf Center & Shop</title>
+
     <!-- Required meta tags -->
-    {% block meta %}
+     {% block meta %}
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,9 +15,6 @@
         <meta name="keywords" content="surfing, surfboards, wetsuits, surf center, surf shop, surfing lessons, surfing equipment">
         <meta name="robots" content="index, follow">
         <link rel="canonical" href="https://surf-center-and-shop-5e23c52a2d1d.herokuapp.com/">
-    {% endblock %}
-
-    {% block extra_meta %}
     {% endblock %}
 
     {% block corecss %}
@@ -44,10 +43,8 @@
         <script src="https://js.stripe.com/v3/"></script>
     {% endblock %}
 
-    {% block extra_js %}
-    {% endblock %}
 
-        <title>Surf Center & Shop{% block extra_title %}{% endblock %}</title>
+        
   </head>
   <body>
     <header class="surf-bg-light">
@@ -177,7 +174,7 @@
     {% endblock %}
 
     {% block postloadjs %}
-    <script type="text/javascript">
+    <script>
       $('.toast').toast('show');
     </script>
     {% endblock %}
