@@ -185,7 +185,7 @@ footer {
     font-size: 24px;
     margin: 0 10px;
     color: #ff7043;
-    transition: color 0.3s ease, transform 0.3 ease;
+    transition: color 0.3s ease, transform 0.3s ease;
     vertical-align: middle;
 }
 
@@ -278,7 +278,7 @@ input[type='text']:focus, input[type='email']:focus, textarea:focus {
     height: 100px;
     background-color: #205072;
     border-radius: 25px;
-    box-shadow: 0, 4px, 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -306,7 +306,7 @@ input[type='text']:focus, input[type='email']:focus, textarea:focus {
       #f0f8ff,
       #f0f8ff 10px,
       #329D9C 10px,
-      #329D9C 20px,
+      #329D9C 20px
     );
 }
 
