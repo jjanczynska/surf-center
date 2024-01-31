@@ -253,7 +253,6 @@ The secondary color scheme used throught the project:
   - `date_subscribed`: DateTimeField (auto_now_add=True)
 - **Methods:**
   - `__str__`: Returns the subscriber's email.
-![Database schema]()
 
  ---
  ## THE FEATURES<a id = "features"></a> 
@@ -262,53 +261,53 @@ The secondary color scheme used throught the project:
 
  Main Features on the Index Page:
 
-    *  Header
+*  Header
 
-     ![Header](readme-img/header.png)
+![Header](readme-img/header.png)
 
-    * Navigation Bar
+* Navigation Bar
 
-     ![Navbar](readme-img/navbar.png)
+![Navbar](readme-img/navbar.png)
 
-    * Hero Image
+* Hero Image
 
-     ![Hero Image](readme-img/hero-img.png)
+![Hero Image](readme-img/hero-img.png)
 
-    * Newsletter
+* Newsletter
 
-    ![Newsletter](readme-img/Newsletter.png)
+![Newsletter](readme-img/Newsletter.png)
 
-    * Footer with Social Media Icons
+* Footer with Social Media Icons
 
-    ![Footer](readme-img/footer.png)
+![Footer](readme-img/footer.png)
     
 Main Features on the online shop page :
 
-    * Products dispay
+* Products dispay
 
-    ![Products](readme-img/products.png)
+![Products](readme-img/products.png)
 
-    * Filtering by Category
+* Filtering by Category
     
-    ![Categories](readme-img/selection.png)
+![Categories](readme-img/selection.png)
 
-    * Shopping Bag 
+* Shopping Bag 
 
-    ![Shopping Bag](readme-img/shopping-bag.png)
+![Shopping Bag](readme-img/shopping-bag.png)
 
-    * Order Confirmation
+* Order Confirmation
 
-    ![Order Confirmation](readme-img/order-confirmation.png)
+![Order Confirmation](readme-img/order-confirmation.png)
 
 Product Managment Features :
 
-    * Product Managment
+* Product Managment
     
-    ![Product Managment](readme-img/product-managment.png)
+![Product Managment](readme-img/product-managment.png)
 
-    * Editing Product
+* Editing Product
     
-    ![Edit Products](readme-img/editing-product.png)
+![Edit Products](readme-img/editing-product.png)
 
     
 
@@ -395,7 +394,7 @@ Before deploying, make sure your requirements.txt is updated
 - Under Object Ownership select ACLs enabled to allow access to the objects in the bucket.
 - Under Block Public Access settings unselect block all public access as the application will need access to the objects in the bucket.
 - Click on create bucket.
-1. Edit bucket settings.
+2. Edit bucket settings.
 - Bucket properties
   - Open the bucket page.
   - Go to properties tab and scroll down to website hosting and click on edit.
@@ -439,7 +438,7 @@ Before deploying, make sure your requirements.txt is updated
     - Navigate and Click Save changes.
     - For the Access control list (ACL) section, click edit and enable List for Everyone (public access) and accept the warning box. If the edit button is disabled, you need to change the Object Ownership section above to ACLs enabled.
 
-1. Identify and Access Management (IAM)
+3. Identify and Access Management (IAM)
 - Create User group
     - In the search bar, search for IAM. 
     - On the IAM page select user groups in the menu on the left.
