@@ -4,7 +4,7 @@
 
 ![home page](readme-img/responsive.png)
 
-## CONTENTS
+## CONTENT
 ---
 * [USER EXPERIENCE](#user-exp)  
 
@@ -39,6 +39,9 @@
         * [How To Clone](#how-to-clone)
         * [Using GitPod](#using-gitpod)
 
+* [SEO](#seo)
+
+* [Marketing](#marketing)
 
 * [CREDITS](#Credits) 
 
@@ -344,7 +347,7 @@ Additional:
 * [GitPod](https://www.gitpod.io/) - as the CDE for development.
 * [Heroku](heroku.com) - was used to deploy the progect.
 * [Lucidchart](https://www.lucidchart.com/) - to create the flow chart and database schema.
-* [Google Fonts](https://fonts.google.com/) - used for Roboto and Prompt fonts.
+* [Google Fonts](https://fonts.google.com/) - used for Lato and Cabin Scetch fonts.
 * [Font Awesome](https://fontawesome.com/) - used for social media icons.
 * [Balsamiq](https://balsamiq.cloud/) - used to create wireframes.
 * [Gunicorn](https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/gunicorn/) - used as the Web Server to run Django on Heroku.
@@ -497,6 +500,27 @@ If you would like to edit the copy of ths repository in GitPod, follow this step
 1. On the top of the page, on the right hand side, click the green button with GitPod, click it.
 1. It opens the GitPod website. If you are a first time user - connect it to your GitHub account and authorize gitpod-io. In the next step - create your account.
 1. GitPod will create your Workspacem which may take a while. After the workspace has been loaded, you can start editing in GitPod.
+---
+## SEO<a id = "seo"></a>
+
+The B2C (Business-to-Consumer) ecommerce model for this online surfshop operates as a platform catering to individual consumers looking to purchase surfing equipment. This model revolves around offering a selection of gear and lessons.
+
+The target customers for this online shop are surfing enthusiasts and regular holidaymakers. The business aims to attract new customers with lessons offering to show people that never participated in watersports that it can be fun and atractive way to spend free time at the beach.
+
+- Descriptive meta tags were added to the main template, including title, description and keywords.
+- Robots.txt file was created at the root level of the project. This file tells the search engine crawlers which URLs they can access on the website.
+
+---
+## Marketing<a id="marketing"></a>
+
+ Newsletter is included in the index page. This section facilitates user engagement and promotes the e-commerce store through email marketing.
+
+- Facebook Page
+
+[Surf Center & Shop](https://www.facebook.com/profile.php?id=61554421701370)
+![Facebook Page](readme-img/fbook1.png)
+![Facebook Page](readme-img/fbook2.png)
+
 ---
 ## CREDITS<a id = "Credits"></a>
 ---
