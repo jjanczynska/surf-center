@@ -31,5 +31,5 @@ Go back to [README.md](/README.md)
 ### CSS
 |file|Validator|Result|
 | --- | --- | --- |
-| base.css |![base]() | <mark><mark> |
-| checkout.css |![checkout]() | <mark><mark> |
+| base.css |![base](testing-img/basecss-validator.png) | <mark>PASS<mark> |
+| checkout.css |![checkout](testing-img/checkoutcss-validator.png) | <mark>PASS<mark> |
