@@ -3,6 +3,7 @@ from decimal import Decimal
 from django.conf import settings
 from product.models import Product, Service
 
+
 def bag_contents(request):
     """Context for handling the shopping bag"""
 
@@ -13,7 +14,6 @@ def bag_contents(request):
     delivery = Decimal(0)
 
     bag = request.session.get('bag', {'products': {}, 'lessons': {}})
-
 
     # Adding products to the bag
     products = bag.get('products', {})
@@ -47,19 +47,19 @@ def bag_contents(request):
                 'item': product,
                 'type': 'product',
                 'subtotal': subtotal,
-            })       
+            })
 
     # calculating delivery for products
 
     if product_total > 0:
-        delivery = product_total * Decimal(settings.STANDARD_DELIVERY_PERCENTAGE / 100)
-
-    
-
+        delivery = (
+            product_total *
+            Decimal(settings.STANDARD_DELIVERY_PERCENTAGE / 100)
+        )
 
     # Adding lessons to the bag
     lessons = bag.get('lessons', {})
- 
+
     for lesson_key, lesson_info in lessons.items():
 
         if 'item_id' not in lesson_info or 'details' not in lesson_info:
@@ -72,7 +72,10 @@ def bag_contents(request):
         date = lesson_info['details'].get('date', 'Not Specified')
         time_slot = lesson_info['details'].get('time_slot', 'Not Specified')
 
-        total_price_per_lesson = Decimal(quantity) * Decimal(lesson.price_per_participant)
+        total_price_per_lesson = (
+            Decimal(quantity) *
+            Decimal(lesson.price_per_participant)
+        )
         total += total_price_per_lesson
 
         bag_items.append({
@@ -81,9 +84,9 @@ def bag_contents(request):
             'item': lesson,
             'type': 'lesson',
             'subtotal': total_price_per_lesson,
-            'date' : date,
-            'time_slot' : time_slot,
-            'participants' : participants
+            'date': date,
+            'time_slot': time_slot,
+            'participants': participants
         })
 
     grand_total = total + delivery
@@ -92,12 +95,8 @@ def bag_contents(request):
         'bag_items': bag_items,
         'total': total,
         'product_count': product_count,
-        'delivery' : delivery,
+        'delivery': delivery,
         'grand_total': grand_total,
     }
 
     return context
-
-
-    
-

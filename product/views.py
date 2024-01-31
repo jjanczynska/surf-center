@@ -18,12 +18,16 @@ def all_products(request):
         Q(category__name="private_lesson") | Q(category__name="group_lesson")
     )
 
-    lesson_schedules = LessonSchedule.objects.filter(date__gte=date.today(), is_booked=False)
+    lesson_schedules = LessonSchedule.objects.filter(
+        date__gte=date.today(),
+        is_booked=False
+        )
 
     all_categories = Category.objects.all()
 
     query = request.GET.get('q', '')
-    categories = request.GET.get('category', '').split(',') if 'category' in request.GET else []
+    categories = (request.GET.get('category', '').split(',')
+                  if 'category' in request.GET else [])
     sort = request.GET.get('sort', 'id')
     direction = request.GET.get('direction', 'asc')
     current_sorting = f'{sort}_{direction}'
@@ -37,7 +41,9 @@ def all_products(request):
         descending = '-' if direction == 'desc' else ''
 
     if query:
-        search_query = Q(name__icontains=query) | Q(description__icontains=query)
+        search_query = Q(name__icontains=query) \
+               | Q(description__icontains=query)
+
         products = products.filter(search_query)
         services = services.filter(search_query)
 
@@ -53,19 +59,26 @@ def all_products(request):
         elif sort == 'rating':
             products = products.order_by(f'{descending}rating')
             # Services don't have ratings, use a default value
-            services = services.annotate(rating=Value(0, output_field=IntegerField())).order_by(f'{descending}rating')
+            services = services.annotate(
+                rating=Value(0, output_field=IntegerField())
+            ).order_by(f'{descending}rating')
+
         elif sort == 'name':
-            products = products.annotate(lower_name=Lower('name')).order_by(f'{descending}lower_name')
-            services = services.annotate(lower_get_type_display=Lower('type')).order_by(f'{descending}lower_get_type_display')
+            products = products.annotate(
+                lower_name=Lower('name')
+            ).order_by(f'{descending}lower_name')
+            services = services.annotate(
+                lower_get_type_display=Lower('type')
+            ).order_by(f'{descending}lower_get_type_display')
+
         elif sort == 'category':
             products = products.order_by(f'{descending}category__name')
             services = services.order_by(f'{descending}category__name')
 
-
     context = {
-        'products' : products,
-        'services' : services,
-        'lesson_schedules' : lesson_schedules,
+        'products': products,
+        'services': services,
+        'lesson_schedules': lesson_schedules,
         'search_term': query,
         'all_categories': all_categories,
         'current_sorting': current_sorting,
@@ -82,7 +95,7 @@ def surfing_equipment(request):
         Q(category__name='water_boots') |
         Q(category__name='wetsuits') |
         Q(category__name='secondhand') |
-        Q(category__name='water_ponchos') 
+        Q(category__name='water_ponchos')
     )
 
     categories = None
@@ -92,7 +105,8 @@ def surfing_equipment(request):
     if 'sort' in request.GET:
         sortkey = request.GET['sort']
         sort = sortkey
-        direction = request.GET['direction'] if 'direction' in request.GET else 'asc'
+        direction = (request.GET['direction'] if 'direction' in request.GET
+                     else 'asc')
 
         if sortkey == 'name':
             sortkey = 'lower_name'
@@ -108,9 +122,9 @@ def surfing_equipment(request):
             categories = Category.objects.filter(name__in=categories)
 
     context = {
-        'products' : products,
+        'products': products,
         'current_categories': categories,
-        'current_sorting' : f'{sort}_{direction}'
+        'current_sorting': f'{sort}_{direction}'
     }
 
     return render(request, 'products-services/surfing-equipment.html', context)
@@ -123,19 +137,24 @@ def surfing_equipment_detail(request, product_id):
 
     context = {'product': product}
 
-    return render (request, 'products-services/surfing-equipment-detail.html', context)
+    return render(
+        request,
+        'products-services/surfing-equipment-detail.html',
+        context
+        )
+
 
 def lessons(request):
     """ A view to show all services categorised as lessons """
 
     services = Service.objects.filter(
         Q(category__name='private_lesson') |
-        Q(category__name='group_lesson') 
+        Q(category__name='group_lesson')
     )
     no_lessons_available = services.count() == 0
     all_lessons_booked = LessonSchedule.objects.filter(
-        service__in=services, 
-        date__gte=date.today(), 
+        service__in=services,
+        date__gte=date.today(),
         is_booked=False
     ).exists()
 
@@ -145,8 +164,9 @@ def lessons(request):
 
     if 'sort' in request.GET:
         sortkey = request.GET['sort']
-        sort = sortkeydirection = request.GET['direction'] if 'direction' in request.GET else 'asc'
-
+        direction = (request.GET['direction'] if 'direction' in request.GET
+                     else 'asc')
+        sort = sortkeydirection = direction
         sortkey = f'-{sortkey}' if direction == 'desc' else sortkey
         services = services.order_by(sortkey)
 
@@ -155,7 +175,11 @@ def lessons(request):
         services = Service.objects.filter(category__name__in=categories)
 
     for service in services:
-        lesson_schedules = LessonSchedule.objects.filter(service=service, date__gte=date.today(), is_booked=False)
+        lesson_schedules = LessonSchedule.objects.filter(
+            service=service,
+            date__gte=date.today(),
+            is_booked=False
+            )
         if lesson_schedules.exists():
             all_lessons_booked = False
             break
@@ -163,9 +187,8 @@ def lessons(request):
     if not services:
         no_lessons_available = True
 
-
     context = {
-        'services' : services,
+        'services': services,
         'no_lessons_available': no_lessons_available,
         'all_lessons_booked': all_lessons_booked,
         'current_categories': categories,
@@ -174,12 +197,13 @@ def lessons(request):
 
     return render(request, 'products-services/lessons.html', context)
 
+
 def lesson_detail(request, lesson_id):
     """ A view to show individual lesson details """
     lesson = get_object_or_404(Service, pk=lesson_id)
     available_slots = LessonSchedule.objects.filter(
-        service=lesson, 
-        date__gte=date.today(), 
+        service=lesson,
+        date__gte=date.today(),
         is_booked=False
         ).order_by('date', 'time_slot')
 
@@ -189,6 +213,7 @@ def lesson_detail(request, lesson_id):
     }
 
     return render(request, 'products-services/lessons-detail.html', context)
+
 
 def special_offers(request):
     """ A view to show products and services in special offers """
@@ -204,13 +229,13 @@ def special_offers(request):
 
     return render(request, 'products-services/special-offers.html', context)
 
+
 @login_required
 def add_product(request):
     """ Add a product or service at the shop """
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
-        
 
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
@@ -218,7 +243,10 @@ def add_product(request):
             form.save()
             messages.success(request, 'Successfully added product!')
             return redirect(reverse('add_product'))
-        messages.error(request, 'Update failed. Please ensure the form is valid.')
+        messages.error(
+            request,
+            'Update failed. Please ensure the form is valid.'
+            )
     else:
         form = ProductForm()
 
@@ -228,6 +256,7 @@ def add_product(request):
     }
 
     return render(request, template, context)
+
 
 @login_required
 def edit_item(request, item_id):
@@ -240,15 +269,18 @@ def edit_item(request, item_id):
     Form = None
     item_type = None
 
-
     try:
         item = get_object_or_404(Product, pk=item_id)
         Form = ProductForm
         item_type = 'product'
-    except:
-        item = get_object_or_404(Service, pk=item_id)
-        Form = ServiceForm
-        item_type = 'service'
+    except Http404:
+        try:
+            item = get_object_or_404(Service, pk=item_id)
+            Form = ServiceForm
+            item_type = 'service'
+        except Http404:
+            messages.error(request, 'Item not found.')
+            return redirect('all_products')
 
     if request.method == 'POST':
         form = Form(request.POST, request.FILES, instance=item)
@@ -257,10 +289,18 @@ def edit_item(request, item_id):
             messages.success(request, f'Successfully updated {item_type}!')
             return redirect(reverse('all_products'))
         else:
-            messages.error(request, f'Failed to update {item_type} Please ensure the form is valid.')
+            messages.error(
+                request,
+                f'Failed to update {item_type}.'
+                'Please ensure the form is valid.'
+                )
     else:
         form = Form(instance=item)
-        messages.info(request, f'You are editing {item.name}' if item_type == 'product' else item.type)
+        messages.info(
+            request,
+            f'You are editing {item.name}.'
+            if item_type == 'product' else item.type
+            )
 
     template = 'products-services/edit-item.html'
     context = {
@@ -271,13 +311,13 @@ def edit_item(request, item_id):
 
     return render(request, template, context)
 
+
 @login_required
 def delete_item(request, item_id):
     """ Delete a product or a service from the shop """
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
-
 
     try:
         item = get_object_or_404(Product, pk=item_id)
@@ -296,15 +336,15 @@ def subscribe_newsletter(request):
         form = NewsletterForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Thank you for subscribing to our newsletter!')
-            return redirect('all_products')  
+            messages.success(
+                request,
+                'Thank you for subscribing to our newsletter!'
+                )
+            return redirect('all_products')
         else:
             for field, error in form.errors.items():
                 messages.error(request, f"{field}: {error}")
-            return redirect('all_products')  
+            return redirect('all_products')
     else:
         messages.error(request, 'Invalid request method.')
-        return redirect('all_products')  
-            
-
-  
+        return redirect('all_products')

@@ -33,3 +33,41 @@ Go back to [README.md](/README.md)
 | --- | --- | --- |
 | base.css |![base](testing-img/basecss-validator.png) | <mark>PASS<mark> |
 | checkout.css |![checkout](testing-img/checkoutcss-validator.png) | <mark>PASS<mark> |
+
+## Python
+
+|File|App|Image|Result|Comment|
+| --- |----| --- | --- |----|
+| admin | Product |![python]() | <mark><mark> ||
+| models | Product |![python]() | <mark>PASS<mark> ||
+| urls | Product |![python]() | <mark>PASS<mark> ||
+| views | Product |![python]() | <mark>PASS<mark> ||
+| forms | Product |![python]() | <mark>PASS<mark> ||
+| widgets | Product |![python]() | <mark>PASS<mark> ||
+| urls | Home |![python]() | <mark>PASS<mark> ||
+| views | Home |![python]() | <mark>PASS<mark> ||
+| forms | Profiles |![python]() | <mark>PASS<mark> ||
+| models | Profiles |![python]() | <mark>PASS<mark> ||
+| urls | Profiles |![python]() | <mark>PASS<mark> ||
+| views | Profiles |![python]() | <mark>PASS<mark> ||
+| admin | Checkout |![python]() | <mark><mark> ||
+| apps | Checkout |![python]() | <mark><mark> ||
+| forms | Checkout |![python]() | <mark><mark> ||
+| models | Checkout |![python]() | <mark><mark> ||
+| signals | Checkout |![python]() | <mark><mark> | |
+| urls | Checkout |![python]() | <mark><mark> ||
+| views | Checkout |![python]() | <mark><mark> ||
+| webhook-handler | Checkout |![python]() | <mark><mark> ||
+| webhooks | Checkout |![python]() | <mark><mark> ||
+| contexts| Bag |![python]() | <mark>PASS<mark> ||
+| urls | Bag |![python]()| <mark>PASS<mark> ||
+| views | Bag |![python]()| <mark><mark> ||
+
+## JavaScript
+|file|Validator|Result|Comment|
+| --- | --- | --- |----|
+|  |![js]() | <mark><mark> ||
+| |![js]() | <mark><mark> ||
+|  |![js]() | <mark><mark> ||
+|  |![js]() | <mark><mark> ||
+| |![js]() | <mark><mark> ||

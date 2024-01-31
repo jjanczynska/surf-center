@@ -5,9 +5,8 @@ from django.contrib import messages
 from .contexts import bag_contents
 import datetime
 
-
-
 # Create your views here.
+
 
 def view_bag(request):
     """ A view that renders the bag contents page """
@@ -153,6 +152,7 @@ def update_bag(request, item_id, item_type):
     request.session.modified = True
     return redirect(reverse('view_bag'))
 
+
 def remove_from_bag(request, item_id):
     """Remove the specified product or lesson from the shopping bag"""
 
@@ -204,4 +204,3 @@ def remove_from_bag(request, item_id):
     except Exception as e:
         print(f"Error removing item from bag: {e}")
         return HttpResponse(status=500)
-
