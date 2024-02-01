@@ -222,7 +222,6 @@ def special_offers(request):
     product_offers = Product.objects.filter(is_special_offer=True)
 
     context = {
-        'secondhand': secondhand,
         'product_offers': product_offers,
         'service_offers': service_offers,
     }
