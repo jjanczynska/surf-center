@@ -9,10 +9,49 @@ import datetime
 
 
 def view_bag(request):
-    """ A view that renders the bag contents page """
-    context = bag_contents(request)
     bag = request.session.get('bag', {'products': {}, 'lessons': {}})
+    bag_items = []
+
+    # Fetch product details for products in the bag
+    for product_id, details in bag['products'].items():
+        product = Product.objects.get(pk=product_id)
+        if isinstance(details, dict):
+            # Handle products with sizes
+            for size, quantity in details['items_by_size'].items():
+                bag_items.append({
+                    'id': product_id,
+                    'type': 'product',
+                    'quantity': quantity,
+                    'product': product,
+                    'size': size.upper(),
+                    'image_url': product.image.url if product.image else None,
+                    'name': product.name,
+                    'price': product.price,
+                })
+        else:
+            # Handle products without sizes
+            bag_items.append({
+                'id': product_id,
+                'type': 'product',
+                'quantity': details,
+                'product': product,
+                'image_url': product.image.url if product.image else None,
+                'name': product.name,
+                'price': product.price,
+                'size': None,
+            })
+        
+    context = {'bag_items': bag_items}
     return render(request, 'bag/bag.html', context)
+
+
+# Fetch service details for lessons in the bag
+
+    context = {
+        'bag_items': bag_items,
+    }
+    return render(request, 'bag/bag.html', context)
+
 
 
 def add_to_bag(request, item_id, item_type):

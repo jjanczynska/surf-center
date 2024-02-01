@@ -16,7 +16,7 @@ Test were carried by Developer tools in the browsers as well as variaty of Mobil
 - [Responsiveness](#Responsiveness)
 - [Browser Compatibility](#browser-compatibility)
 - [Lighthouse](#Lighthouse)
-- [Manual Testing](#manual-testing)
+- [Bugs](#bugs)
 
 ## Code Validation
 ### HTML
@@ -82,4 +82,15 @@ Test were carried by Developer tools in the browsers as well as variaty of Mobil
 
 - Stripe Webhooks
 ![Webhooks](testing-img/stripe-webhook-test.png)
+
+## Lighthouse
+
+|Page|Validator|Result|
+| --- | --- | --- |
+| Home |![home](testing-img/light-homepage.png) | <mark>PASS<mark> |
+| Product |![Products](testing-img/light-shop.png) | <mark>PASS<mark> |
+| Checkout |![Checkout](testing-img/light-checkout.png) | <mark>PASS<mark> |
+| Checkout Sucess |![Checkout Sucess](testing-img/light-checkout-success.png) | <mark>PASS<mark> |
+
+## Bugs
 
