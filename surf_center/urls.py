@@ -30,3 +30,7 @@ urlpatterns = [
     path('checkout/', include('checkout.urls')),
     path('profiles/', include('profiles.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = 'surf_center.views.handler404'
+handler405 = 'surf_center.views.handler405'
+handler500 = 'surf_center.views.handler500'
