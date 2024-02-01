@@ -1,5 +1,12 @@
 Go back to [README.md](/README.md)
 
+#### Application is fully responsive and tested on following browsers: 
+[Google Chrome](https://www.google.com/intl/en_ie/chrome/)
+[Mozilla Firefox](https://www.mozilla.org/en-GB/firefox/new/)
+[Microsoft edge](https://www.microsoft.com/en-gb/edge/welcome?form=MA13FJ)
+
+Test were carried by Developer tools in the browsers as well as variaty of Mobile phones and tablets.
+
 # Testing
 - [Code Validation](#code-validation)
     - [HTML](#html)
@@ -70,3 +77,9 @@ Go back to [README.md](/README.md)
 | product |![js](testing-img/js-add-product.png) | <mark>PASS<mark> ||
 | product |![js](testing-img/js-edit-item.png) | <mark>PASS<mark> ||
 | product |![js](testing-img/js-surfing-equipment.png) | <mark>PASS<mark> ||
+
+## Stripe
+
+- Stripe Webhooks
+![Webhooks](testing-img/stripe-webhook-test.png)
+
