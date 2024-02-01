@@ -34,14 +34,14 @@
                             <tr>
                                 <td class="p-3 w-25">
                                     {% if item.product.image %}
-                                    <img class="img-fluid rounded" src="{{ item.item.image.url }}" alt="{{ item.item.name }} Image">
+                                    <img class="img-fluid rounded" src="{{ item.item.image.url }}" alt="{{ item.name }} Image">
                                     {% else %}
                                     <img class="img-fluid rounded" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.product.name }}">
                                     {% endif %}
                                 </td>
                                 <td class="py-3">
                                     <p class="my-0"><strong>{{ item.item.name }}</strong></p>
-                                    <p class="my-0"><strong>Size: </strong>{% if item.item.has_sizes|upper %}{{ item.size }}{% else %}N/A{% endif %}</p>
+                                    <p class="my-0"><strong>Size: </strong>{% if item.item.has_sizes|upper %}{{ item.size|upper }}{% else %}N/A{% endif %}</p>
                                     <p class="my-0 small text-muted">SKU: {{ item.item.sku|upper }}</p>
                                 </td>
                                 <td class="py-3">
@@ -82,7 +82,7 @@
                             <tr>
                                 <td class="p-3 w-25">
                                     {% if item.service.image %}
-                                    <img class="img-fluid rounded" src="{{ item.item.image.url }}" alt="{{ item.lesson.get_type_display }} - {{ item.service.description }}" >
+                                    <img class="img-fluid rounded" src="{{ item.service.image.url }}" alt="{{ item.lesson.get_type_display }} - {{ item.service.description }}" >
                                     {% else %}
                                     <img class="img-fluid rounded" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.lesson.get_type_display }} - {{ item.service.description }}">
                                     {% endif %}
