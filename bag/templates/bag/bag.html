@@ -184,7 +184,7 @@
         e.preventDefault();
         var form = $(this).closest('tr').find('form.update-form');
         form.submit();
-    })
+    });
 
     // Remove item and reload on click
     $('.remove-item').click(function(e) {
@@ -204,7 +204,6 @@
             'product_size': size, 
             'item_id': itemId,
             'item_type': item_type,
-            'product_size': size,
             'date': date,
             'time_slot': time_slot
         };
@@ -213,6 +212,6 @@
          .done(function() {
              location.reload();
          });
-    })
+    });
 </script>
 {% endblock %}

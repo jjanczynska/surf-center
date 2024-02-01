@@ -66,8 +66,7 @@ Go back to [README.md](/README.md)
 ## JavaScript
 |file|Validator|Result|Comment|
 | --- | --- | --- |----|
-|  |![js]() | <mark><mark> ||
-| |![js]() | <mark><mark> ||
-|  |![js]() | <mark><mark> ||
-|  |![js]() | <mark><mark> ||
-| |![js]() | <mark><mark> ||
+| bag |![js](testing-img/js-bag.png) | <mark>PASS<mark> ||
+| product |![js](testing-img/js-add-product.png) | <mark>PASS<mark> ||
+| product |![js](testing-img/js-edit-item.png) | <mark>PASS<mark> ||
+| product |![js](testing-img/js-surfing-equipment.png) | <mark>PASS<mark> ||
