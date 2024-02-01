@@ -15,6 +15,7 @@ from bag.contexts import bag_contents
 import stripe
 import json
 
+
 @require_POST
 def cache_checkout_data(request):
     try:
@@ -30,6 +31,7 @@ def cache_checkout_data(request):
         messages.error(request, 'Sorry, your payment cannot be \
             processed right now. Please try again later.')
         return HttpResponse(content=e, status=400)
+
 
 def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
@@ -59,7 +61,8 @@ def checkout(request):
                 try:
                     if 'product' in item_data:
                         product = Product.objects.get(id=item_id)
-                        for size, quantity in item_data['items_by_size'].items():
+                        items_by_size = item_data['items_by_size']
+                        for size, quantity in items_by_size.items():
                             order_line_item = ProductsLineItem(
                                 order=order,
                                 product=product,
@@ -67,6 +70,7 @@ def checkout(request):
                                 product_size=size,
                             )
                             order_line_item.save()
+
                     if 'lesson' in item_data:
                         lesson = Service.objects.get(id=item_id)
                         order_line_item = LessonLineItem(
@@ -86,14 +90,19 @@ def checkout(request):
                     return redirect(reverse('view_bag'))
 
             request.session['save_info'] = 'save-info' in request.POST
-            return redirect(reverse('checkout_success', args=[order.order_number]))
+            return redirect(
+                reverse('checkout_success', args=[order.order_number])
+            )
         else:
             messages.error(request, 'There was an error with your form. \
                 Please double check your information.')
     else:
         bag = request.session.get('bag', {})
         if not bag:
-            messages.error(request, "There's nothing in your bag at the moment")
+            messages.error(
+                request,
+                "There's nothing in your bag at the moment"
+            )
             return redirect(reverse('product'))
 
         current_bag = bag_contents(request)
@@ -107,14 +116,15 @@ def checkout(request):
 
         order_form = OrderForm()
 
-        context =  bag_contents(request)  
+        context = bag_contents(request)
         context = {
             'order_form': order_form,
             'stripe_public_key': stripe_public_key,
             'client_secret': intent.client_secret,
         }
-        
+
         return render(request, 'checkout/checkout.html', context)
+
 
 def checkout_success(request, order_number):
     """

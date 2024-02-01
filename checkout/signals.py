@@ -3,12 +3,14 @@ from django.dispatch import receiver
 
 from .models import Order, ProductsLineItem, LessonLineItem
 
+
 @receiver(post_save, sender=ProductsLineItem)
 def update_order_on_product_save(sender, instance, created, **kwargs):
     """
     Update order total on ProductsLineItem update/create
     """
     instance.order.update_total()
+
 
 @receiver(post_delete, sender=ProductsLineItem)
 def update_order_on_product_delete(sender, instance, **kwargs):
@@ -17,6 +19,7 @@ def update_order_on_product_delete(sender, instance, **kwargs):
     """
     instance.order.update_total()
 
+
 @receiver(post_save, sender=LessonLineItem)
 def update_order_on_lesson_save(sender, instance, created, **kwargs):
     """
@@ -24,8 +27,9 @@ def update_order_on_lesson_save(sender, instance, created, **kwargs):
     """
     instance.order.update_total()
 
+
 @receiver(post_delete, sender=LessonLineItem)
-def update_order_on_lesson_delete(sender, instance, **kwargs):  
+def update_order_on_lesson_delete(sender, instance, **kwargs):
     """
     Update order total on LessonLineItem delete
     """

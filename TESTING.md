@@ -38,30 +38,30 @@ Go back to [README.md](/README.md)
 
 |File|App|Image|Result|Comment|
 | --- |----| --- | --- |----|
-| admin | Product |![python]() | <mark><mark> ||
-| models | Product |![python]() | <mark>PASS<mark> ||
-| urls | Product |![python]() | <mark>PASS<mark> ||
-| views | Product |![python]() | <mark>PASS<mark> ||
-| forms | Product |![python]() | <mark>PASS<mark> ||
-| widgets | Product |![python]() | <mark>PASS<mark> ||
-| urls | Home |![python]() | <mark>PASS<mark> ||
-| views | Home |![python]() | <mark>PASS<mark> ||
-| forms | Profiles |![python]() | <mark>PASS<mark> ||
-| models | Profiles |![python]() | <mark>PASS<mark> ||
-| urls | Profiles |![python]() | <mark>PASS<mark> ||
-| views | Profiles |![python]() | <mark>PASS<mark> ||
-| admin | Checkout |![python]() | <mark><mark> ||
-| apps | Checkout |![python]() | <mark><mark> ||
-| forms | Checkout |![python]() | <mark><mark> ||
-| models | Checkout |![python]() | <mark><mark> ||
-| signals | Checkout |![python]() | <mark><mark> | |
-| urls | Checkout |![python]() | <mark><mark> ||
-| views | Checkout |![python]() | <mark><mark> ||
-| webhook-handler | Checkout |![python]() | <mark><mark> ||
-| webhooks | Checkout |![python]() | <mark><mark> ||
-| contexts| Bag |![python]() | <mark>PASS<mark> ||
-| urls | Bag |![python]()| <mark>PASS<mark> ||
-| views | Bag |![python]()| <mark><mark> ||
+| admin | Product |![python](testing-img/admin-product.png) | <mark><mark> ||
+| models | Product |![python](testing-img/product-models.png) | <mark>PASS<mark> ||
+| urls | Product |![python](testing-img/product-urls.png) | <mark>PASS<mark> ||
+| views | Product |![python](testing-img/product-views.png) | <mark>PASS<mark> ||
+| forms | Product |![python](testing-img/product-forms.png) | <mark>PASS<mark> ||
+| widgets | Product |![python](testing-img/product-widgets.png) | <mark>PASS<mark> ||
+| urls | Home |![python](testing-img/product-urls.png) | <mark>PASS<mark> ||
+| views | Home |![python](testing-img/product-views.png) | <mark>PASS<mark> ||
+| forms | Profiles |![python](testing-img/profile-forms.png) | <mark>PASS<mark> ||
+| models | Profiles |![python](testing-img/profiles-models.png) | <mark>PASS<mark> ||
+| urls | Profiles |![python](testing-img/profiles-urls.png) | <mark>PASS<mark> ||
+| views | Profiles |![python](testing-img/profiles-views.png) | <mark>PASS<mark> ||
+| admin | Checkout |![python](testing-img/checkout-admin.png) | <mark>PASS<mark> ||
+| apps | Checkout |![python](testing-img/checkout-apps.png) | <mark>PASS<mark> ||
+| forms | Checkout |![python](testing-img/checkout-forms.png) | <mark>PASS<mark> ||
+| models | Checkout |![python](testing-img/checkout-models.png) | <mark>PASS<mark> ||
+| signals | Checkout |![python](testing-img/checkout-signals.png) | <mark>PASS<mark> ||
+| urls | Checkout |![python](testing-img/checkout-urls.png) | <mark>PASS<mark> ||
+| views | Checkout |![python](testing-img/checkout-views.png) | <mark>PASS<mark> |Line too long in code form Stripe, therefore left as is|
+| webhook-handler | Checkout |![python](testing-img/checkout-webhook-handler.png) | <mark>PASS<mark> |Line too long in webhooks for Stripe, therefore left as is|
+| webhooks | Checkout |![python](testing-img/checkout-webhooks.png) | <mark>PASS<mark> |2 errors in Stripe code, therefore left as is|
+| contexts| Bag |![python](testing-img/bag-contexts.png) | <mark>PASS<mark> ||
+| urls | Bag |![python](testing-img/bag-urls.png)| <mark>PASS<mark> ||
+| views | Bag |![python](testing-img/bag-views.png)| <mark>PASS<mark> ||
 
 ## JavaScript
 |file|Validator|Result|Comment|

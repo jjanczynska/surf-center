@@ -9,6 +9,7 @@ from profiles.models import UserProfile
 import json
 import time
 
+
 class StripeWH_Handler:
     """Handle Stripe webhooks"""
 
@@ -24,13 +25,13 @@ class StripeWH_Handler:
         body = render_to_string(
             'checkout/confirmation-email/confirmation-email-body.txt',
             {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
-        
+
         send_mail(
             subject,
             body,
             settings.DEFAULT_FROM_EMAIL,
             [cust_email]
-        )   
+        )
 
     def handle_event(self, event):
         """
@@ -41,30 +42,29 @@ class StripeWH_Handler:
             status=200)
 
     def handle_payment_intent_succeeded(self, event):
-            """
-            Handle the payment_intent.succeeded webhook from Stripe
-            """
-            intent = event.data.object
-            pid = intent.id
-            bag = intent.metadata.bag
-            save_info = intent.metadata.save_info
+        """
+        Handle the payment_intent.succeeded webhook from Stripe
+        """
+        intent = event.data.object
+        pid = intent.id
+        bag = intent.metadata.bag
+        save_info = intent.metadata.save_info
 
-            # Get the Charge object
-            stripe_charge = stripe.Charge.retrieve(
-                intent.latest_charge
-            )
+        # Get the Charge object
+        stripe_charge = stripe.Charge.retrieve(
+            intent.latest_charge
+        )
 
-            billing_details = stripe_charge.billing_details # updated
-            shipping_details = intent.shipping
-            grand_total = round(stripe_charge.amount / 100, 2) # updated
+        billing_details = stripe_charge.billing_details
+        shipping_details = intent.shipping
+        grand_total = round(stripe_charge.amount / 100, 2)
 
+        # Clean data in the shipping details
+        for field, value in shipping_details.address.items():
+            if value == "":
+                shipping_details.address[field] = None
 
-            # Clean data in the shipping details
-            for field, value in shipping_details.address.items():
-                if value == "":
-                    shipping_details.address[field] = None
-
-             # Update profile information if save_info was checked
+            # Update profile information if save_info was checked
             profile = None
             username = intent.metadata.username
             if username != 'AnonymousUser':
@@ -150,7 +150,7 @@ class StripeWH_Handler:
                     return HttpResponse(
                         content=f'Webhook received: {event["type"]} | ERROR: {e}',
                         status=500)
-            self._send_confirmation_email(order)            
+            self._send_confirmation_email(order)         
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
                 status=200)

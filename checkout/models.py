@@ -8,13 +8,18 @@ from django.conf import settings
 from product.models import Product, Service, LessonSchedule
 from profiles.models import UserProfile
 
-
 # Create your models here.
+
 
 class Order(models.Model):
     order_number = models.CharField(max_length=32, null=False, editable=False)
-    user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL,
-                                     null=True, blank=True, related_name='orders')
+    user_profile = models.ForeignKey(
+        UserProfile,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='orders'
+    )
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
     phone_number = models.CharField(max_length=20, null=False, blank=False)
@@ -25,11 +30,21 @@ class Order(models.Model):
     street_address2 = models.CharField(max_length=80, null=True, blank=True)
     county = models.CharField(max_length=80, null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
-    delivery_cost = models.DecimalField(max_digits=6, decimal_places=2, null=False, default=0)
-    order_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
-    grand_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
-    original_bag = models.TextField(null=False, blank=False, default='')
-    stripe_pid = models.CharField(max_length=254, null=False, blank=False, default='')
+    delivery_cost = models.DecimalField(
+        max_digits=6, decimal_places=2, null=False, default=0
+    )
+    order_total = models.DecimalField(
+        max_digits=10, decimal_places=2, null=False, default=0
+    )
+    grand_total = models.DecimalField(
+        max_digits=10, decimal_places=2, null=False, default=0
+    )
+    original_bag = models.TextField(
+        null=False, blank=False, default=''
+    )
+    stripe_pid = models.CharField(
+        max_length=254, null=False, blank=False, default=''
+    )
 
     def _generate_order_number(self):
         """
@@ -42,8 +57,10 @@ class Order(models.Model):
         Update grand total each time a line item is added,
         accounting for delivery costs.
         """
-        product_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] 
-        lesson_total = self.lessonitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum']
+        product_total = self.lineitems.aggregate(
+            Sum('lineitem_total'))['lineitem_total__sum']
+        lesson_total = self.lessonitems.aggregate(
+            Sum('lineitem_total'))['lineitem_total__sum']
         self.order_total = product_total + lesson_total
         self.grand_total = self.order_total + self.delivery_cost
         self.save()
@@ -56,11 +73,29 @@ class Order(models.Model):
     def __str__(self):
         return self.order_number
 
+
 class ProductsLineItem(models.Model):
-    order = models.ForeignKey(Order, null=False, blank=False, on_delete=models.CASCADE, related_name='lineitems')
-    product = models.ForeignKey(Product, null=False, blank=False, on_delete=models.CASCADE)
+    order = models.ForeignKey(
+        Order,
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE,
+        related_name='lineitems'
+    )
+    product = models.ForeignKey(
+        Product,
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE
+    )
     quantity = models.IntegerField(null=False, blank=False, default=0)
-    lineitem_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
+    lineitem_total = models.DecimalField(
+        max_digits=6,
+        decimal_places=2,
+        null=False,
+        blank=False,
+        editable=False
+    )
 
     def save(self, *args, **kwargs):
         self.lineitem_total = self.product.price * self.quantity
@@ -69,16 +104,39 @@ class ProductsLineItem(models.Model):
     def __str__(self):
         return f'SKU {self.product.sku} on order {self.order.order_number}'
 
+
 class LessonLineItem(models.Model):
-    order = models.ForeignKey(Order, null=False, blank=False, on_delete=models.CASCADE, related_name='lessonitems')
-    service = models.ForeignKey(Service, null=False, blank=False, on_delete=models.CASCADE)
+    order = models.ForeignKey(
+        Order,
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE,
+        related_name='lessonitems'
+    )
+    service = models.ForeignKey(
+        Service,
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE
+    )
     quantity = models.IntegerField(null=False, blank=False, default=0)
     date = models.DateField(null=False, blank=False)
-    time_slot = models.CharField(max_length=5, choices=LessonSchedule.TIME_SLOTS)
-    lineitem_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
+    time_slot = models.CharField(
+        max_length=5,
+        choices=LessonSchedule.TIME_SLOTS
+    )
+    lineitem_total = models.DecimalField(
+        max_digits=6,
+        decimal_places=2,
+        null=False,
+        blank=False,
+        editable=False
+    )
 
     def save(self, *args, **kwargs):
-        self.lineitem_total = self.service.price_per_participant * self.quantity
+        self.lineitem_total = (
+             self.service.price_per_participant * self.quantity
+        )
         super().save(*args, **kwargs)
 
     def __str__(self):
