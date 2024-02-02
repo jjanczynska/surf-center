@@ -16,6 +16,7 @@ Test were carried by Developer tools in the browsers as well as variaty of Mobil
 - [Responsiveness](#Responsiveness)
 - [Browser Compatibility](#browser-compatibility)
 - [Lighthouse](#Lighthouse)
+- [User Stories Testing](#user stories testing)
 - [Bugs](#bugs)
 
 ## Code Validation
@@ -91,6 +92,31 @@ Test were carried by Developer tools in the browsers as well as variaty of Mobil
 | Product |![Products](testing-img/light-shop.png) | <mark>PASS<mark> |
 | Checkout |![Checkout](testing-img/light-checkout.png) | <mark>PASS<mark> |
 | Checkout Sucess |![Checkout Sucess](testing-img/light-checkout-success.png) | <mark>PASS<mark> |
+
+## User Stories Testing
+
+| User Story | Comment/Bug | Result |
+|------------|-------------|--------|
+| As a DEVELOPER, I need to configure the database to save my data. |  | <mark>PASS<mark> |
+| As a DEVELOPER, I need to implement CRUD operations for products to manage inventory. |  | <mark>PASS<mark> |
+| As a MARKETER, I want visitors to sign up for the newsletter to keep them engaged. |  | <mark>PASS<mark> |
+| As a CUSTOMER, I want a website that is easy to navigate and accessible. |  | <mark>PASS<mark> |
+| As a CUSTOMER, I want to view products to make purchase decisions. |  | <mark>PASS<mark> |
+| As a CUSTOMER, I want the website to be responsive on mobile devices. |  | <mark>PASS<mark> |
+| As a CUSTOMER, I want to securely pay for my purchases online. |  | <mark>PASS<mark> |
+| As a CUSTOMER, I want the online store to reflect updates and changes immediately. |  | <mark>PASS<mark> |
+| As a CUSTOMER, I want to be able to update my personal information. |  | <mark>FAIL<mark> |
+| As a MARKETER, I want to showcase products and services on social media for increased visibility. |  | <mark>PASS<mark>|
+| As a USER, I want to use a secure and reliable application. |  | <mark>PASS<mark> |
+| As a potential CUSTOMER, I want to find the website through search engines. |  |<mark>PASS<mark> |
+| As an ADMIN, I want to add, edit, and delete product listings. |  | <mark>PASS<mark> |
+| As an ADMIN, I need the ability to manage customer accounts. |  | <mark>PASS<mark> |
+| As an ADMIN, I want to add, update, and delete records from the database without accessing the admin panel. |  | <mark>PASS<mark> |
+| As a USER, I want to register, login, logout, and manage my account. |  | <mark>FAIL<mark> |
+| As a USER, I want to be able to Create, Read, and Update my profile and my shopping cart. | Problem with that from the User side, Admin side works | <mark>FAIL<mark> |
+| As a DEVELOPER, I want to conduct thorough testing. |  | <mark>PASS<mark> |
+| As a DEVELOPER, I need to document the project in a README. |  | <mark>PASS<mark> |
+| As a STAKEHOLDER, I want to ensure the project is well documented. |  | <mark>PASS<mark> |
 
 ## Bugs
 
