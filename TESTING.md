@@ -16,7 +16,7 @@ Test were carried by Developer tools in the browsers as well as variaty of Mobil
 - [Responsiveness](#Responsiveness)
 - [Browser Compatibility](#browser-compatibility)
 - [Lighthouse](#Lighthouse)
-- [User Stories Testing](#user stories testing)
+- [User Stories Testing](#user-stories-testing)
 - [Bugs](#bugs)
 
 ## Code Validation
@@ -120,3 +120,18 @@ Test were carried by Developer tools in the browsers as well as variaty of Mobil
 
 ## Bugs
 
+| Status | Category | Description | Comment |
+|--------|----------|-------------|---------|
+| ✅ | Fixed Bugs | Problems with updating and removing products from the checkout bag were addressed and resolved. | |
+| ✅ | Fixed Bugs | Issue with incorrect size display in the checkout bag has been fixed. | |
+| ✅ | Fixed Bugs | Updating lessons in the checkout bag now works as intended. | |
+| ❌ | Known Bugs | Currently, users are unable to delete lessons from the checkout bag. | |
+| ❌ | Known Bugs | Billing information is not correctly displayed on the checkout success page. | |
+| ❌ | Known Bugs | Images are not displaying correctly in the view bag. | |
+| ❌ | Known Bugs | Some navbar links do not work in the deployed version on Heroku. | 2 links working, the rest connected to filtering does not, links in the header work, all links in gitpod version work perfectly |
+| ❌ | Known Bugs | Sign Up function for new customers is not working as expected. | |
+| ❌ | Known Bugs | Email confirmations are not being sent to users upon registration. | |
+| ❌ | Known Bugs | Users will be able to recover their passwords through a secure process. | |
+| ❌ | Tasks | Users will have the ability to create a profile upon registration. | |
+| ❌ | Tasks | Users can view their profile information. | |
+| ❌ | Tasks | Users will be able to update their personal information and preferences. | |
