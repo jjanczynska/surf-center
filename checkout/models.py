@@ -58,11 +58,11 @@ class Order(models.Model):
         accounting for delivery costs.
         """
         product_total = self.lineitems.aggregate(
-            Sum('lineitem_total'))['lineitem_total__sum']
+            Sum('lineitem_total'))['lineitem_total__sum'] or 0
         lesson_total = self.lessonitems.aggregate(
-            Sum('lineitem_total'))['lineitem_total__sum']
+            Sum('lineitem_total'))['lineitem_total__sum'] or 0
         self.order_total = product_total + lesson_total
-        self.grand_total = self.order_total + self.delivery_cost
+        self.grand_total = self.order_total + (self.delivery_cost or 0)
         self.save()
 
     def save(self, *args, **kwargs):

@@ -56,6 +56,7 @@ def checkout(request):
             order.original_bag = json.dumps(bag)
             order.stripe_pid = request.POST.get('client_secret').split('_secret')[0]
             order.save()
+            
 
             for item_id, item_data in bag.items():
                 try:
@@ -88,6 +89,8 @@ def checkout(request):
                     )
                     order.delete()
                     return redirect(reverse('view_bag'))
+
+            order.update_total()
 
             request.session['save_info'] = 'save-info' in request.POST
             return redirect(
@@ -164,6 +167,9 @@ def checkout_success(request, order_number):
     template = 'checkout/checkout-success.html'
     context = {
         'order': order,
+        'order_total': order.order_total,
+        'delivery_cost': order.delivery_cost,
+        'grand_total': order.grand_total,
     }
 
     return render(request, template, context)
