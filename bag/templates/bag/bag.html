@@ -33,19 +33,19 @@
                         {% if item.type == 'product' %}
                             <tr>
                                 <td class="p-3 w-25">
-                                    {% if item.image.url %}
-                                    <img class="img-fluid rounded" src="{{ item.item.image.url }}" alt="{{ item.item.name }} Image">
+                                    {% if item.product.image %}
+                                    <img class="img-fluid rounded" src="{{ item.product.image.url }}" alt="{{ item.product.name }} Image">
                                     {% else %}
-                                    <img class="img-fluid rounded" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.item.name }}">
+                                    <img class="img-fluid rounded" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.product.name }}">
                                     {% endif %}
                                 </td>
                                 <td class="py-3">
-                                    <p class="my-0"><strong>{{ item.item.name }}</strong></p>
-                                    <p class="my-0"><strong>Size: </strong>{% if item.item.has_sizes|upper %}{{ item.size|upper }}{% else %}N/A{% endif %}</p>
-                                    <p class="my-0 small text-muted">SKU: {{ item.item.sku|upper }}</p>
+                                    <p class="my-0"><strong>{{ item.product.name }}</strong></p>
+                                    <p class="my-0"><strong>Size: </strong>{% if item.size %}{{ item.size|upper }}{% else %}N/A{% endif %}</p>
+                                    <p class="my-0 small text-muted">SKU: {{ item.product.sku|upper }}</p>
                                 </td>
                                 <td class="py-3">
-                                    <p class="my-0">${{ item.item.price }}</p>
+                                    <p class="my-0">${{ item.product.price }}</p>
                                 </td>
                                 <td class="py-3 w-25">
                                     <form class="form update-form" method="POST" action="{% url 'update_bag' item.id item.type %}">
@@ -82,17 +82,17 @@
                             <tr>
                                 <td class="p-3 w-25">
                                     {% if item.service.image %}
-                                    <img class="img-fluid rounded" src="{{ item.service.image.url }}" alt="{{ item.lesson.get_type_display }} - {{ item.service.description }}" >
+                                    <img class="img-fluid rounded" src="{{ item.service.image.url }}" alt="{{ item.service.get_type_display }} - {{ item.service.description }}" >
                                     {% else %}
-                                    <img class="img-fluid rounded" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.lesson.get_type_display }} - {{ item.service.description }}">
+                                    <img class="img-fluid rounded" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.service.get_type_display }} - {{ item.service.description }}">
                                     {% endif %}
                                 </td>
                                 <td class="py-3">
-                                    <p class="my-0"><strong>{{ item.item.get_type_display }}</strong></p>
+                                    <p class="my-0"><strong>{{ item.service.get_type_display }}</strong></p>
                                     <p class="my-0 small text-muted">Date: {{ item.date }}</p>
                                     <p class="my-0 small text-muted">Time Slot: {{ item.time_slot }}</p>
                                 <td class="py-3">
-                                    <p class="my-0">${{ item.item.price }}</p>
+                                    <p class="my-0">${{ item.price }}</p>
                                 </td>
                                 </td>
                                 <td class="py-3 w-25">
@@ -111,7 +111,7 @@
                                                     </button>
                                                 </div>
                                                 <input class="form-control form-control-sm qty_input" type="number"
-                                                    name="quantity" value="{{ item.participants }}" min="1" max="5"
+                                                    name="quantity" value="{{ item.quantity }}" min="1" max="5"
                                                     data-item_id="{{ item.id }}"
                                                     id="id_qty_{{ item.id }}">
                                                 <div class="input-group-append">

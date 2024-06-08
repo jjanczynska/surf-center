@@ -61,7 +61,14 @@ class Order(models.Model):
         product_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
         lesson_total = self.lessonitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
         self.order_total = product_total + lesson_total
-        self.grand_total = self.order_total + (self.delivery_cost or 0)
+        
+        # Calculate delivery cost based on order total and threshold
+        if self.order_total < settings.FREE_DELIVERY_THRESHOLD:
+            self.delivery_cost = self.order_total * Decimal(settings.STANDARD_DELIVERY_PERCENTAGE / 100)
+        else:
+            self.delivery_cost = Decimal(0)
+        
+        self.grand_total = self.order_total + self.delivery_cost
         print(f"Order Total: {self.order_total}, Delivery Cost: {self.delivery_cost}, Grand Total: {self.grand_total}")
         self.save()
 

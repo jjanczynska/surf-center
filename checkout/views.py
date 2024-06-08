@@ -41,6 +41,8 @@ def checkout(request):
 
     if request.method == 'POST':
         bag = request.session.get('bag', {})
+        print("Bag contents at checkout:", bag)  # Debug print
+
         form_data = {
             'full_name': request.POST['full_name'],
             'email': request.POST['email'],
@@ -59,11 +61,10 @@ def checkout(request):
             order.stripe_pid = request.POST.get('client_secret').split('_secret')[0]
             order.save()
             
-
-            for item_id, item_data in bag.items():
+            for item_id, item_data in bag.get('products', {}).items():
                 try:
-                    if 'product' in item_data:
-                        product = Product.objects.get(id=item_id)
+                    product = Product.objects.get(id=item_id)
+                    if isinstance(item_data, dict):
                         items_by_size = item_data['items_by_size']
                         for size, quantity in items_by_size.items():
                             order_line_item = ProductsLineItem(
@@ -73,26 +74,47 @@ def checkout(request):
                                 product_size=size,
                             )
                             order_line_item.save()
-
-                    if 'lesson' in item_data:
-                        lesson = Service.objects.get(id=item_id)
-                        order_line_item = LessonLineItem(
+                            print(f"Saved product line item: {order_line_item}")  # Debug print
+                    else:
+                        order_line_item = ProductsLineItem(
                             order=order,
-                            service=lesson,
-                            quantity=item_data['quantity'],
-                            date=item_data['details']['date'],
-                            time_slot=item_data['details']['time_slot'],
+                            product=product,
+                            quantity=item_data,
                         )
                         order_line_item.save()
-                except (Product.DoesNotExist, Service.DoesNotExist):
+                        print(f"Saved product line item: {order_line_item}")  # Debug print
+
+                except Product.DoesNotExist:
                     messages.error(request, (
-                        "One of the items wasn't found in our database. "
+                        "One of the products wasn't found in our database. "
+                        "Please call us for assistance!")
+                    )
+                    order.delete()
+                    return redirect(reverse('view_bag'))
+
+            for lesson_key, lesson_data in bag.get('lessons', {}).items():
+                try:
+                    lesson = Service.objects.get(id=lesson_data['item_id'])
+                    order_line_item = LessonLineItem(
+                        order=order,
+                        service=lesson,
+                        quantity=lesson_data['quantity'],
+                        date=lesson_data['details']['date'],
+                        time_slot=lesson_data['details']['time_slot'],
+                    )
+                    order_line_item.save()
+                    print(f"Saved lesson line item: {order_line_item}")  # Debug print
+
+                except Service.DoesNotExist:
+                    messages.error(request, (
+                        "One of the lessons wasn't found in our database. "
                         "Please call us for assistance!")
                     )
                     order.delete()
                     return redirect(reverse('view_bag'))
 
             order.update_total()
+            print(f"Updated order total: {order.grand_total}")  # Debug print
 
             request.session['save_info'] = 'save-info' in request.POST
             return redirect(
@@ -137,6 +159,7 @@ def checkout_success(request, order_number):
     """
     save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
+    print(f"Order at checkout success: {order}")  # Debug print
 
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
