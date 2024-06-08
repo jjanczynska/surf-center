@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 from .forms import OrderForm
 from .models import Order, ProductsLineItem, LessonLineItem
@@ -159,10 +161,10 @@ def checkout_success(request, order_number):
 
     # Send confirmation email
     subject = render_to_string(
-        'checkout/confirmation_emails/confirmation_email_subject.txt',
+        'checkout/confirmation_emails/confirmation_subject.html',
         {'order': order})
     body = render_to_string(
-        'checkout/confirmation_emails/confirmation_email_body.txt',
+        'checkout/confirmation_emails/confirmation_emails_body.html',
         {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
 
     send_mail(
@@ -182,9 +184,6 @@ def checkout_success(request, order_number):
     template = 'checkout/checkout-success.html'
     context = {
         'order': order,
-        'order_total': order.order_total,
-        'delivery_cost': order.delivery_cost,
-        'grand_total': order.grand_total,
     }
 
     return render(request, template, context)

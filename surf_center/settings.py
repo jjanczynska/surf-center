@@ -29,13 +29,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'surf-center-and-shop-5e23c52a2d1d.herokuapp.com',
     '8000-jjanczynska-surfcenter-8tquorjvs86.ws-eu105.gitpod.io', 
     '8000-jjanczynska-surfcenter-8tquorjvs86.ws-eu106.gitpod.io',
     '8000-jjanczynska-surfcenter-8tquorjvs86.ws-eu107.gitpod.io',
+    '8000-jjanczynska-surfcenter-8tquorjvs86.ws-eu114.gitpod.io',
+    '*.gitpod.io',
 ]
 
 
@@ -233,6 +235,7 @@ STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
 if 'DEVELOPMENT' in os.environ:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = 'surf-center@example.com'
+    print("Using console email backend for development")
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_USE_TLS = True
@@ -242,5 +245,6 @@ else:
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
     DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
     DEFAULT_FROM_EMAIL = 'surfcenter@example.com'
+    print("Using SMTP email backend for production")
 
 

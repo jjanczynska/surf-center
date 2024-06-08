@@ -57,10 +57,12 @@ class Order(models.Model):
         Update grand total each time a line item is added,
         accounting for delivery costs.
         """
+        print("Updating order total...")
         product_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
         lesson_total = self.lessonitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
         self.order_total = product_total + lesson_total
         self.grand_total = self.order_total + (self.delivery_cost or 0)
+        print(f"Order Total: {self.order_total}, Delivery Cost: {self.delivery_cost}, Grand Total: {self.grand_total}")
         self.save()
 
     def save(self, *args, **kwargs):
@@ -98,6 +100,8 @@ class ProductsLineItem(models.Model):
     def save(self, *args, **kwargs):
         self.lineitem_total = self.product.price * self.quantity
         super().save(*args, **kwargs)
+        self.order.update_total()
+        print(f"Product Line Item Total: {self.lineitem_total}, Quantity: {self.quantity}, Product Price: {self.product.price}")
 
     def __str__(self):
         return f'SKU {self.product.sku} on order {self.order.order_number}'
@@ -136,6 +140,7 @@ class LessonLineItem(models.Model):
              self.service.price_per_participant * self.quantity
         )
         super().save(*args, **kwargs)
+        self.order.update_total()
 
     def __str__(self):
         return f'{self.service.type} lesson on {self.date} at {self.time_slot}'
