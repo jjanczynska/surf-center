@@ -33,7 +33,7 @@ def bag_contents(request):
                     'item': product,
                     'type': 'product',
                     'size': size,
-                    'subtotal': subtotal,
+                    'subtotal': item_data * product.price
                 })
 
         else:
@@ -46,7 +46,7 @@ def bag_contents(request):
                 'quantity': item_data,
                 'item': product,
                 'type': 'product',
-                'subtotal': subtotal,
+                'subtotal': item_data * product.price
             })
 
     # calculating delivery for products
@@ -96,6 +96,7 @@ def bag_contents(request):
         'total': total,
         'product_count': product_count,
         'delivery': delivery,
+        'subtotal': item_data * product.price,
         'grand_total': grand_total,
     }
 
