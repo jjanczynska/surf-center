@@ -4,12 +4,12 @@ from django_countries.fields import CountryField
 from django.db import models
 from django.db.models import Sum
 from django.conf import settings
+from decimal import Decimal
 
 from product.models import Product, Service, LessonSchedule
 from profiles.models import UserProfile
 
 # Create your models here.
-
 
 class Order(models.Model):
     order_number = models.CharField(max_length=32, null=False, editable=False)
@@ -61,13 +61,14 @@ class Order(models.Model):
         product_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
         lesson_total = self.lessonitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
         self.order_total = product_total + lesson_total
-        
-        # Calculate delivery cost based on order total and threshold
+        print(f"Product Total: {product_total}, Lesson Total: {lesson_total}, Combined Order Total: {self.order_total}")
         if self.order_total < settings.FREE_DELIVERY_THRESHOLD:
             self.delivery_cost = self.order_total * Decimal(settings.STANDARD_DELIVERY_PERCENTAGE / 100)
+            print(f"Calculated Delivery Cost (within threshold): {self.delivery_cost}")
         else:
             self.delivery_cost = Decimal(0)
-        
+            print(f"Calculated Delivery Cost (above threshold): {self.delivery_cost}")
+    
         self.grand_total = self.order_total + self.delivery_cost
         print(f"Order Total: {self.order_total}, Delivery Cost: {self.delivery_cost}, Grand Total: {self.grand_total}")
         self.save()
