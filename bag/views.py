@@ -48,20 +48,20 @@ def view_bag(request):
 
 
 # Fetch service details for lessons in the bag
-for lesson_key, details in bag['lessons'].items():
-        lesson = get_object_or_404(Service, pk=details['item_id'])
-        bag_items.append({
-            'id': details['item_id'],
-            'type': 'lesson',
-            'quantity': details['quantity'],
-            'service': lesson,
-            'date': details['details']['date'],
-            'time_slot': details['details']['time_slot'],
-            'price': lesson.price_per_participant,
-            'subtotal': details['quantity'] * lesson.price_per_participant, 
-        })
+    for lesson_key, details in bag['lessons'].items():
+            lesson = get_object_or_404(Service, pk=details['item_id'])
+            bag_items.append({
+                'id': details['item_id'],
+                'type': 'lesson',
+                'quantity': details['quantity'],
+                'service': lesson,
+                'date': details['details']['date'],
+                'time_slot': details['details']['time_slot'],
+                'price': lesson.price_per_participant,
+                'subtotal': details['quantity'] * lesson.price_per_participant, 
+            })
 
-    context = {
+    context =  {
         'bag_items': bag_items,
     }
     return render(request, 'bag/bag.html', context)
