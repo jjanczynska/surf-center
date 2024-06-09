@@ -216,7 +216,7 @@ if 'USE_AWS' in os.environ:
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
 
-FREE_DELIVERY_THRESHOLD = 50 
+FREE_DELIVERY_THRESHOLD = 100 
 STANDARD_DELIVERY_PERCENTAGE = 10
 
 # Default primary key field type
@@ -242,9 +242,8 @@ else:
     EMAIL_PORT = 587
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
     DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
-    DEFAULT_FROM_EMAIL = 'surfcenter@example.com'
+    DEFAULT_FROM_EMAIL = env('EMAIL_HOST_USER')
     print("Using SMTP email backend for production")
-
 
